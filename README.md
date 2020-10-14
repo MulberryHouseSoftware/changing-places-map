@@ -2,6 +2,14 @@
 
 A mobile-friendly map of accessible toilets.
 
+## Google Maps API
+
+You must provide a Google Maps API key. This should be exposed using the environment variable `REACT_APP_GOOGLE_MAPS_API_KEY`. Make sure that this key has access to the Places service.
+
+When running in production please ensure that the key is adequately secured.
+
+Additionally, you should set the environment variable `STORYBOOK_GOOGLE_MAPS_API_KEY` to a valid API key to run the Storybook stories which use the Google Maps API.
+
 ## Available Scripts
 
 In the project directory, you can run:
