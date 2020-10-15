@@ -15,5 +15,5 @@ const Template: Story<InfoProps> = (args) => <Info {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  toilet: toilets[0] as Toilet,
+  toilet: toilets[10] as Toilet,
 };

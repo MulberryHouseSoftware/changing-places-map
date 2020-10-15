@@ -12,7 +12,7 @@ export interface InfoProps {
 
 export const Info: React.FC<InfoProps> = ({ toilet }) => (
   <div>
-    <Box component="article" px={4} pb={4}>
+    <Box component="article" px={2} pb={2}>
       <Typography variant="h1">{toilet.name}</Typography>
       <Typography>{toilet.address}</Typography>
       <Typography>{toilet.town}</Typography>
@@ -35,17 +35,17 @@ export const Info: React.FC<InfoProps> = ({ toilet }) => (
         Hours
       </Typography>
       <ul className={styles.schedule}>
-        <li className={classNames(styles.item, styles.itemHighlight)}>
+        <li className={styles.item}>
           <Typography component="span" className={styles.day}>
-            <Box fontWeight={700}>Mon - Fri</Box>
+            <Box>Mon - Fri</Box>
           </Typography>
           <Typography component="span" className={styles.hours}>
-            <Box fontWeight={700}>{toilet.opening_hours_mon_fri}</Box>
+            <Box>{toilet.opening_hours_mon_fri}</Box>
           </Typography>
         </li>
         <li className={styles.item}>
           <Typography component="span" className={styles.day}>
-            Sat- Sun
+            Sat - Sun
           </Typography>
           <Typography component="span" className={styles.hours}>
             {toilet.opening_hours_sat_sun}
