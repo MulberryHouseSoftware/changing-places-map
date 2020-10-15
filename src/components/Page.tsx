@@ -209,6 +209,7 @@ export const Page: React.FC<PageProps> = ({
         onClose={handleClose}
         BackdropProps={{ invisible: true }}
         ModalProps={{ disableBackdropClick: true }}
+        PaperProps={{ elevation: 0 }}
       >
         <div
           style={{
