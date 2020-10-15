@@ -44,13 +44,13 @@ export const Map = React.forwardRef<MapHandle, MapProps>(
     }));
 
     React.useEffect(() => {
-      const center: google.maps.LatLngLiteral = { lat: 52.2053, lng: 0.1218 };
+      const center: google.maps.LatLngLiteral = { lat: 51.5074, lng: 0.0 };
 
       map.current = new google.maps.Map(
         document.getElementById("map") as HTMLElement,
         {
           center,
-          zoom: 13,
+          zoom: 11,
           disableDefaultUI: true,
         }
       );

@@ -4,7 +4,7 @@ export const usePosition = () => {
   const [position, setPosition] = React.useState<{
     lat: number;
     lng: number;
-  } | null>({ lat: 52, lng: 0 });
+  } | null>({ lat: 51.5074, lng: 0.1278 });
 
   const [error, setError] = React.useState<string | null>(null);
 

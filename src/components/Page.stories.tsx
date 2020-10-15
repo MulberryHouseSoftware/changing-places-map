@@ -17,5 +17,5 @@ const Template: Story<PageProps> = (args) => <Page {...args} />;
 export const Standard = Template.bind({});
 Standard.args = {
   ...ToiletsListStories.Standard.args,
-  position: { lat: 52, lng: 0 },
+  position: { lat: 51.5074, lng: 0.1278 },
 };
