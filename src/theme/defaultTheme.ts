@@ -6,12 +6,10 @@ export const defaultTheme = {
     h1: {
       fontWeight: 700,
       fontSize: "1.43rem",
-      lineHeight: 1.455,
     },
     h2: {
       fontWeight: 700,
-      fontSize: "0.81rem",
-      lineHeight: 1.229,
+      fontSize: "1rem",
     },
     body1: {
       fontSize: "0.875rem",
