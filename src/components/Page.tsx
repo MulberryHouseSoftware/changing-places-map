@@ -15,6 +15,8 @@ import { findToilets } from "../lib/findToilets";
 import styles from "./page.module.css";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
+const NUM_TOILETS_TO_DISPLAY = 20;
+
 export interface PageProps {
   toilets: Toilet[];
   position: { lat: number; lng: number } | null;
@@ -79,11 +81,11 @@ export const Page: React.FC<PageProps> = ({
     [panToToilet]
   );
 
-  const handleToiletsListMouseOver = React.useCallback((id) => {
+  const handleToiletsListHoverStart = React.useCallback((id) => {
     setHovered(id);
   }, []);
 
-  const handleToiletsListMouseOut = React.useCallback(() => {
+  const handleToiletsListHoverEnd = React.useCallback(() => {
     setHovered(null);
   }, []);
 
@@ -110,12 +112,19 @@ export const Page: React.FC<PageProps> = ({
     lng: number;
   } | null>(position);
 
-  const handleMapDragEnd = React.useCallback((center: google.maps.LatLng) => {
-    setCenter({ lat: center.lat(), lng: center.lng() });
-  }, []);
+  const handleMapCenterChanged = React.useCallback(
+    (center: google.maps.LatLng) => {
+      setCenter({ lat: center.lat(), lng: center.lng() });
+    },
+    []
+  );
 
   const nearestToilets = React.useMemo(
-    () => findToilets(toilets, center as any, position as any).slice(0, 50),
+    () =>
+      findToilets(toilets, center as any, position as any).slice(
+        0,
+        NUM_TOILETS_TO_DISPLAY
+      ),
     [center, position, toilets]
   );
 
@@ -172,13 +181,13 @@ export const Page: React.FC<PageProps> = ({
         <div className={styles.map}>
           <Map
             ref={mapRef}
-            toilets={toilets}
+            toilets={nearestToilets}
             mapTypeControl={matches}
             streetViewControl={matches}
             selected={selected}
             hovered={hovered}
             onClick={handleMapClick}
-            onDragEnd={handleMapDragEnd}
+            onCenterChanged={handleMapCenterChanged}
           />
         </div>
         <div className={styles.list}>
@@ -186,8 +195,8 @@ export const Page: React.FC<PageProps> = ({
             ref={toiletsListRef}
             toilets={nearestToilets}
             selected={selected}
-            onMouseOver={handleToiletsListMouseOver}
-            onMouseOut={handleToiletsListMouseOut}
+            onHoverStart={handleToiletsListHoverStart}
+            onHoverEnd={handleToiletsListHoverEnd}
             onClick={handleToiletsListClick}
             onInfoClick={handleToiletsListInfoClick}
           />

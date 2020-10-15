@@ -13,7 +13,7 @@ export interface MapProps {
   mapTypeControl?: boolean;
   streetViewControl?: boolean;
   onClick?: (name: string) => void;
-  onDragEnd?: (position: any) => void;
+  onCenterChanged?: (position: any) => void;
 }
 
 export interface MapHandle {
@@ -30,7 +30,7 @@ export const Map = React.forwardRef<MapHandle, MapProps>(
       mapTypeControl = false,
       streetViewControl = false,
       onClick,
-      onDragEnd,
+      onCenterChanged,
     },
     ref
   ) => {
@@ -57,12 +57,22 @@ export const Map = React.forwardRef<MapHandle, MapProps>(
         }
       );
 
-      map.current?.addListener("dragend", () => {
-        onDragEnd?.(map.current?.getCenter());
+      const dragEndListener = map.current?.addListener("dragend", () => {
+        onCenterChanged?.(map.current?.getCenter());
       });
 
-      // TODO: Remove listener
-    }, [onDragEnd]);
+      const zoomChangedListener = map.current?.addListener(
+        "zoom_changed",
+        () => {
+          onCenterChanged?.(map.current?.getCenter());
+        }
+      );
+
+      return () => {
+        dragEndListener.remove();
+        zoomChangedListener.remove();
+      };
+    }, [onCenterChanged]);
 
     React.useEffect(() => {
       map.current?.setOptions({
@@ -84,6 +94,11 @@ export const Map = React.forwardRef<MapHandle, MapProps>(
 
         return marker;
       });
+
+      return () =>
+        markers.current.forEach((marker) => {
+          marker.setMap(null);
+        });
 
       // Remove markers when updating
     }, [toilets, onClick]);
