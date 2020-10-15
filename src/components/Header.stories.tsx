@@ -11,13 +11,13 @@ export default {
 
 const Template: Story<HeaderProps> = (args) => <Header {...args} />;
 
-export const NotInstalled = Template.bind({});
-NotInstalled.args = {
+export const NotInstallable = Template.bind({});
+NotInstallable.args = {
   title: "Changing Places",
 };
 
-export const Installed = Template.bind({});
-Installed.args = {
+export const Installable = Template.bind({});
+Installable.args = {
   title: "Changing Places",
   showInstallPromotion: true,
 };
