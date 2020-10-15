@@ -39,7 +39,7 @@ export const Filters: React.FC<FiltersProps> = ({
 
   return (
     <div>
-      <Box component="article" px={4} pb={4}>
+      <Box component="article" px={2} pb={2}>
         <Typography variant="h1">Filters</Typography>
         <List dense className={styles.root}>
           {[
