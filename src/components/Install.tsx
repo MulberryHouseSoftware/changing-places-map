@@ -33,6 +33,7 @@ export const Install: React.FC<InstallProps> = () => {
         justifyContent="center"
         pt={1}
         pb={4}
+        style={{ overflowX: "hidden" }}
       >
         {[0, 1, 2, 3, 4, 5, 6].map((d, i) => (
           <Icon key={i} primary={i === 3} />
