@@ -36,8 +36,6 @@ export const Map = React.forwardRef<MapHandle, MapProps>(
   ) => {
     const map = React.useRef<google.maps.Map>();
     const markers = React.useRef<google.maps.Marker[]>([]);
-    const prevSelected = React.useRef<google.maps.Marker | null>(null);
-    const prevHovered = React.useRef<google.maps.Marker | null>(null);
 
     React.useImperativeHandle(ref, () => ({
       panTo: (position) => {
@@ -104,31 +102,26 @@ export const Map = React.forwardRef<MapHandle, MapProps>(
     }, [toilets, onClick]);
 
     React.useEffect(() => {
-      const index = toilets.findIndex((toilet) => toilet.name === selected);
+      const selectedIndex = toilets.findIndex(
+        (toilet) => toilet.name === selected
+      );
 
-      if (prevSelected.current) {
-        prevSelected.current.setIcon(markerDefault);
+      const hoveredIndex = toilets.findIndex(
+        (toilet) => toilet.name === hovered
+      );
+
+      markers.current.forEach((marker) => marker.setIcon(markerDefault));
+
+      if (hoveredIndex !== -1) {
+        markers.current[hoveredIndex].setIcon(markerHover);
       }
 
-      if (index !== -1) {
-        markers.current && markers.current[index].setIcon(markerSelected);
-        prevSelected.current = markers.current[index];
+      if (selectedIndex !== -1) {
+        markers.current[selectedIndex].setIcon(markerSelected);
       }
-    }, [toilets, selected]);
+    }, [toilets, selected, hovered]);
 
-    // TODO: Do not show if toilet is currently selected. Also ensure selected toilet is not replaced with default marker
-    React.useEffect(() => {
-      const index = toilets.findIndex((toilet) => toilet.name === hovered);
-
-      if (prevHovered.current) {
-        prevHovered.current.setIcon(markerDefault);
-      }
-
-      if (index !== -1) {
-        markers.current && markers.current[index].setIcon(markerHover);
-        prevHovered.current = markers.current[index];
-      }
-    }, [toilets, hovered]);
+    console.log(hovered);
 
     return <div id="map" className={styles.map}></div>;
   }
