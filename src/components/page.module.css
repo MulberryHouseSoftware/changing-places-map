@@ -20,8 +20,8 @@
 
 .searchBar {
   grid-area: searchBar;
-  margin-left: 1.6rem;
-  margin-right: 1.6rem;
+  margin-left: 16px;
+  margin-right: 16px;
   padding-bottom: 8px;
   padding-top: 8px;
 }
@@ -47,8 +47,8 @@
   }
 
   .searchBar {
-    margin-left: 1.6rem;
-    margin-right: 1.6rem;
+    margin-left: 16px;
+    margin-right: 16px;
     padding-top: 2.4rem;
     padding-bottom: 1.6rem;
   }
