@@ -3,7 +3,6 @@ import { Box, Typography } from "@material-ui/core";
 import OpenInNewOutlinedIcon from "@material-ui/icons/OpenInNewOutlined";
 import React from "react";
 import { Toilet } from "../Toilet";
-import classNames from "classnames";
 import styles from "./info.module.css";
 
 export interface InfoProps {
