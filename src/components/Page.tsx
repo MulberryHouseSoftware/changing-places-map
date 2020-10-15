@@ -35,7 +35,7 @@ export const Page: React.FC<PageProps> = ({
   const [selected, setSelected] = React.useState<string | null>(null);
   const [hovered, setHovered] = React.useState<string | null>(null);
   const [open, setOpen] = React.useState(false);
-  const matches = useMediaQuery("(min-width:1024px)");
+  const matches = useMediaQuery("(min-width:600px)");
   const [filtersChecked, setFiltersChecked] = React.useState<string[]>([]);
   const [drawerContent, setDrawerContent] = React.useState<
     "info" | "filters" | null
