@@ -16,7 +16,7 @@ export const Info: React.FC<InfoProps> = ({ toilet }) => {
   if (toilet.timestamp) {
     try {
       // 6/19/2013 11:30:24
-      const date = parse(toilet.timestamp, "M/dd/yyyy hh:mm:ss", new Date());
+      const date = parse(toilet.timestamp, "M/d/yyyy kk:mm:ss", new Date());
       lastUpdated = `${formatDistanceToNow(date)} ago`;
     } catch (e) {
       console.error(e);
