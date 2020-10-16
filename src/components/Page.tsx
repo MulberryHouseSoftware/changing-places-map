@@ -207,39 +207,45 @@ export const Page: React.FC<PageProps> = ({
         open={open}
         variant="temporary"
         onClose={handleClose}
+        disableEnforceFocus
         BackdropProps={{ invisible: true }}
-        ModalProps={{ disableBackdropClick: true }}
+        ModalProps={{ disableBackdropClick: true, keepMounted: true }}
         PaperProps={{ elevation: 0 }}
+        style={{ position: "initial" }}
       >
         <div
           style={{
+            display: "flex",
+            flexDirection: "column",
             width: matches ? "40vw" : "100vw",
             height: "100vh",
           }}
         >
           <Toolbar />
-          <Toolbar>
-            <div className={styles.title} />
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={handleClose}
-              aria-label="close"
-            >
-              <CloseIcon />
-            </IconButton>
-          </Toolbar>
-          {drawerContent === "info" ? (
-            selectedToilet && <Info toilet={selectedToilet} />
-          ) : (
-            <Filters
-              defaultChecked={filtersChecked}
-              onApplyFilters={(checked) => {
-                setFiltersChecked(checked);
-                handleClose();
-              }}
-            />
-          )}
+          <div style={{ flex: "1 1 0", overflowY: "auto" }}>
+            <Toolbar>
+              <div className={styles.title} />
+              <IconButton
+                edge="start"
+                color="inherit"
+                onClick={handleClose}
+                aria-label="close"
+              >
+                <CloseIcon />
+              </IconButton>
+            </Toolbar>
+            {drawerContent === "info" ? (
+              selectedToilet && <Info toilet={selectedToilet} />
+            ) : (
+              <Filters
+                defaultChecked={filtersChecked}
+                onApplyFilters={(checked) => {
+                  setFiltersChecked(checked);
+                  handleClose();
+                }}
+              />
+            )}
+          </div>
         </div>
       </Drawer>
     </div>
