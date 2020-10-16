@@ -38,12 +38,24 @@ export const Info: React.FC<InfoProps> = ({ toilet }) => {
             <Typography></Typography>
           </Box>
           <Box pb={2}>
-            <Typography>Last updated: {lastUpdated}</Typography>
-            <Typography>Location: {toilet.location}</Typography>
-            <Typography>Type: {toilet.type}</Typography>
-            <Typography>Category: {toilet.category}</Typography>
-            <Typography>Contact details: {toilet.contact_details}</Typography>
-            <Typography>Other comments: {toilet.other_comments}</Typography>
+            <Typography>
+              <strong>Last updated:</strong> {lastUpdated}
+            </Typography>
+            <Typography>
+              <strong>Location:</strong> {toilet.location}
+            </Typography>
+            <Typography>
+              <strong>Type:</strong> {toilet.type}
+            </Typography>
+            <Typography>
+              <strong>Category:</strong> {toilet.category}
+            </Typography>
+            <Typography>
+              <strong>Contact details:</strong> {toilet.contact_details}
+            </Typography>
+            <Typography>
+              <strong>Other comments:</strong> {toilet.other_comments}
+            </Typography>
           </Box>
           <Box pb={0}>
             <a
