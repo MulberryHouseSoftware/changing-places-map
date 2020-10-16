@@ -10,10 +10,6 @@
   flex-grow: 1;
 }
 
-.toolbar {
-  background-color: white;
-}
-
 .button {
   border-radius: 40px;
   text-transform: none;

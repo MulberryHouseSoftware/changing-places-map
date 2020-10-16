@@ -1,9 +1,9 @@
 import React from "react";
 import { Toilet } from "../Toilet";
 import { difference } from "../lib/setOperations";
-import markerDefault from "../toilet-marker-default.svg";
-import markerHover from "../toilet-hover-pin.svg";
-import markerSelected from "../toilet-marker-selected.svg";
+import markerDefault from "../images/toilet-marker-default.svg";
+import markerHover from "../images/toilet-hover-pin.svg";
+import markerSelected from "../images/toilet-marker-selected.svg";
 import styles from "./map.module.css";
 import { usePrevious } from "../hooks/usePrevious";
 
