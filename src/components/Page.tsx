@@ -1,4 +1,4 @@
-import { Map, MapHandle } from "./Map";
+import { MapHandle, ToiletMap } from "./Map";
 import { ToiletsList, ToiletsListHandle } from "./ToiletsList";
 
 import CloseIcon from "@material-ui/icons/Close";
@@ -15,7 +15,7 @@ import { findToilets } from "../lib/findToilets";
 import styles from "./page.module.css";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
-const NUM_TOILETS_TO_DISPLAY = 20;
+const NUM_TOILETS_TO_DISPLAY = 50;
 
 export interface PageProps {
   toilets: Toilet[];
@@ -179,7 +179,7 @@ export const Page: React.FC<PageProps> = ({
           />
         </div>
         <div className={styles.map}>
-          <Map
+          <ToiletMap
             ref={mapRef}
             toilets={nearestToilets}
             mapTypeControl={matches}

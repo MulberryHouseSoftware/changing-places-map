@@ -1,9 +1,11 @@
 import React from "react";
 import { Toilet } from "../Toilet";
+import { difference } from "../lib/setOperations";
 import markerDefault from "../toilet-marker-default.svg";
 import markerHover from "../toilet-hover-pin.svg";
 import markerSelected from "../toilet-marker-selected.svg";
 import styles from "./map.module.css";
+import { usePrevious } from "../hooks/usePrevious";
 
 export interface MapProps {
   toilets: Toilet[];
@@ -20,7 +22,7 @@ export interface MapHandle {
   panTo: ({ lat, lng }: { lat: number; lng: number }) => void;
 }
 
-export const Map = React.forwardRef<MapHandle, MapProps>(
+export const ToiletMap = React.forwardRef<MapHandle, MapProps>(
   (
     {
       toilets,
@@ -35,7 +37,10 @@ export const Map = React.forwardRef<MapHandle, MapProps>(
     ref
   ) => {
     const map = React.useRef<google.maps.Map>();
-    const markers = React.useRef<google.maps.Marker[]>([]);
+    const markers = React.useRef<Map<string, google.maps.Marker>>(
+      new Map<string, google.maps.Marker>()
+    );
+    const prevToilets = usePrevious(toilets);
 
     React.useImperativeHandle(ref, () => ({
       panTo: (position) => {
@@ -81,47 +86,49 @@ export const Map = React.forwardRef<MapHandle, MapProps>(
     }, [mapTypeControl, zoomControl, streetViewControl]);
 
     React.useEffect(() => {
-      markers.current = toilets.map((toilet) => {
+      const toiletsSet = new Set(toilets.map((toilet) => toilet.name));
+
+      const previousToiletsSet = prevToilets
+        ? new Set(prevToilets.map((toilet: Toilet) => toilet.name))
+        : new Set<string>();
+
+      const enter = difference(toiletsSet, previousToiletsSet);
+      const exit = difference(previousToiletsSet, toiletsSet);
+
+      const enterToilets = toilets.filter((toilet) =>
+        [...enter].includes(toilet.name)
+      );
+
+      enterToilets.forEach((toilet) => {
         const marker = new google.maps.Marker({
-          position: { lat: toilet.latLng.lat, lng: +toilet.latLng.lng },
+          position: { lat: toilet.latLng.lat, lng: toilet.latLng.lng },
           map: map.current,
           icon: markerDefault,
         });
 
+        marker.set("id", toilet.name);
         marker.addListener("click", () => onClick?.(toilet.name));
 
-        return marker;
+        markers.current.set(toilet.name, marker);
       });
 
-      return () =>
-        markers.current.forEach((marker) => {
-          marker.setMap(null);
-        });
-
-      // Remove markers when updating
-    }, [toilets, onClick]);
+      exit.forEach((name) => {
+        markers.current.get(name)?.setMap(null);
+        markers.current.delete(name);
+      });
+    }, [toilets, prevToilets, onClick]);
 
     React.useEffect(() => {
-      const selectedIndex = toilets.findIndex(
-        (toilet) => toilet.name === selected
-      );
-
-      const hoveredIndex = toilets.findIndex(
-        (toilet) => toilet.name === hovered
-      );
-
       markers.current.forEach((marker) => marker.setIcon(markerDefault));
 
-      if (hoveredIndex !== -1) {
-        markers.current[hoveredIndex].setIcon(markerHover);
+      if (hovered) {
+        markers.current.get(hovered)?.setIcon(markerHover);
       }
 
-      if (selectedIndex !== -1) {
-        markers.current[selectedIndex].setIcon(markerSelected);
+      if (selected) {
+        markers.current.get(selected)?.setIcon(markerSelected);
       }
     }, [toilets, selected, hovered]);
-
-    console.log(hovered);
 
     return <div id="map" className={styles.map}></div>;
   }
