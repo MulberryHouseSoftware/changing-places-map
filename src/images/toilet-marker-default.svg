@@ -1,4 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="21" height="21">
-  <defs/>
-  <circle cx="9.5" cy="9.5" r="9.5" fill="#0072bb" fill-rule="evenodd" stroke="#FFF" transform="translate(1 1)"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25">
+	<circle cx="12.5" cy="12.5" r="10.5" fill="#0072bb" stroke="#ffffff" stroke-width="2" transform="translate(1 1)" />
 </svg>
