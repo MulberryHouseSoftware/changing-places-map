@@ -41,6 +41,14 @@ export const Page: React.FC<PageProps> = ({
     "info" | "filters" | null
   >(null);
 
+  React.useEffect(() => {
+    if (position) {
+      setCenter(position);
+      mapRef.current?.panTo(position);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -110,7 +118,7 @@ export const Page: React.FC<PageProps> = ({
   const [center, setCenter] = React.useState<{
     lat: number;
     lng: number;
-  } | null>(position);
+  } | null>({ lat: 52, lng: 0 });
 
   const handleMapCenterChanged = React.useCallback(
     (center: google.maps.LatLng) => {
