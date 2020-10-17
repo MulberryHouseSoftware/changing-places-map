@@ -46,7 +46,7 @@ export const Page: React.FC<PageProps> = ({
       setCenter(position);
       mapRef.current?.panTo(position);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleClickOpen = () => {
@@ -146,6 +146,7 @@ export const Page: React.FC<PageProps> = ({
       <div className={styles.header}>
         <Header
           title="Changing Places"
+          href="https://www.changingplaces.org/"
           showInstallPromotion={showInstallPromotion}
           onInstallPromotionClick={onInstallPromotionClick}
         />
