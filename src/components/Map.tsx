@@ -1,3 +1,5 @@
+import Fab from "@material-ui/core/Fab";
+import MyLocationIcon from "@material-ui/icons/MyLocation";
 import React from "react";
 import { Toilet } from "../Toilet";
 import { difference } from "../lib/setOperations";
@@ -16,6 +18,7 @@ export interface MapProps {
   streetViewControl?: boolean;
   onClick?: (name: string) => void;
   onCenterChanged?: (position: any) => void;
+  onMyLocationClick?: () => void;
 }
 
 export interface MapHandle {
@@ -33,6 +36,7 @@ export const ToiletMap = React.forwardRef<MapHandle, MapProps>(
       streetViewControl = false,
       onClick,
       onCenterChanged,
+      onMyLocationClick,
     },
     ref
   ) => {
@@ -130,6 +134,21 @@ export const ToiletMap = React.forwardRef<MapHandle, MapProps>(
       }
     }, [toilets, selected, hovered]);
 
-    return <div id="map" className={styles.map}></div>;
+    return (
+      <div className={styles.container}>
+        <div id="map" className={styles.map}></div>
+        <Fab
+          className={styles.fab}
+          size="medium"
+          color="primary"
+          aria-label="center location"
+          onClick={(_event) => {
+            onMyLocationClick?.();
+          }}
+        >
+          <MyLocationIcon />
+        </Fab>
+      </div>
+    );
   }
 );

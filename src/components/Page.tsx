@@ -128,6 +128,13 @@ export const Page: React.FC<PageProps> = ({
     []
   );
 
+  const handleMyLocationClick = React.useCallback(() => {
+    if (position) {
+      setCenter(position);
+      mapRef.current?.panTo(position);
+    }
+  }, [position]);
+
   const nearestToilets = React.useMemo(
     () =>
       findToilets(toilets, center as any, position as any).slice(
@@ -198,6 +205,7 @@ export const Page: React.FC<PageProps> = ({
             hovered={hovered}
             onClick={handleMapClick}
             onCenterChanged={handleMapCenterChanged}
+            onMyLocationClick={handleMyLocationClick}
           />
         </div>
         <div className={styles.list}>
