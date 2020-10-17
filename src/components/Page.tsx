@@ -37,17 +37,18 @@ export const Page: React.FC<PageProps> = ({
   const [open, setOpen] = React.useState(false);
   const matches = useMediaQuery("(min-width:600px)");
   const [filtersChecked, setFiltersChecked] = React.useState<string[]>([]);
+  const [isGeolocated, setIsGeolocated] = React.useState(false);
   const [drawerContent, setDrawerContent] = React.useState<
     "info" | "filters" | null
   >(null);
 
   React.useEffect(() => {
-    if (position) {
+    if (position && !isGeolocated) {
       setCenter(position);
       mapRef.current?.panTo(position);
+      setIsGeolocated(true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isGeolocated, position]);
 
   const handleClickOpen = () => {
     setOpen(true);

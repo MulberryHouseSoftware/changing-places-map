@@ -21,10 +21,12 @@ export function findToilets(
       searchLatLng,
       new google.maps.LatLng(toilet.latLng.lat, toilet.latLng.lng)
     ),
-    distanceFromUser: google.maps.geometry.spherical.computeDistanceBetween(
-      userLatLng,
-      new google.maps.LatLng(+toilet.latLng.lat, +toilet.latLng.lng)
-    ),
+    distanceFromUser: userLocation
+      ? google.maps.geometry.spherical.computeDistanceBetween(
+          userLatLng,
+          new google.maps.LatLng(+toilet.latLng.lat, +toilet.latLng.lng)
+        )
+      : undefined,
   }));
 
   distances.sort(function (a, b) {
