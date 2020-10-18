@@ -26,7 +26,7 @@ export const Info: React.FC<InfoProps> = ({ toilet }) => {
   return (
     <div>
       <Box component="article" px={2} pb={2}>
-        <Box pb={4}>
+        <Box pb={4} style={{ textOverflow: "clip", overflow: "hidden" }}>
           <Typography variant="h1" gutterBottom>
             {toilet.name}
           </Typography>
