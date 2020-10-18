@@ -12,7 +12,18 @@ export default {
   parameters: { layout: "fullscreen" },
 } as Meta;
 
-const Template: Story<PageProps> = (args) => <Page {...args} />;
+const Template: Story<PageProps> = (args) => (
+  <div
+    style={{
+      height: "100vh",
+      maxHeight: "1024px",
+      display: "flex",
+      flexDirection: "column",
+    }}
+  >
+    <Page {...args} />
+  </div>
+);
 
 export const Standard = Template.bind({});
 Standard.args = {
