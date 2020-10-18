@@ -1,11 +1,11 @@
-export interface Toilet {
+export type Toilet = {
   name: string;
   timestamp?: string;
   who?: string; // Who is filling out this form?"
   correspondence_name?: string;
-  type?: string; // Type of building
+  type: string; // Type of building
   type_further_details?: string;
-  category?: string; // What venue category does this fall into?
+  category: string; // What venue category does this fall into?
   address?: string; // Address Line 1
   town?: string; // Town / City
   county?: string; // County
@@ -27,4 +27,6 @@ export interface Toilet {
   location?: string; // Location
   latLng: { lat: number; lng: number };
   distance?: number;
-}
+};
+
+export type FilterableKey = "type" | "category";

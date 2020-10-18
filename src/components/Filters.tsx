@@ -1,82 +1,133 @@
+import { FilterableKey, Toilet } from "../Toilet";
+
 import Box from "@material-ui/core/Box";
-import CheckIcon from "@material-ui/icons/Check";
+import Button from "@material-ui/core/Button";
+import Checkbox from "@material-ui/core/Checkbox";
 import Fab from "@material-ui/core/Fab";
-import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import FormControl from "@material-ui/core/FormControl";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
 import ListItemText from "@material-ui/core/ListItemText";
+import MenuItem from "@material-ui/core/MenuItem";
 import React from "react";
+import Select from "@material-ui/core/Select";
 import { Typography } from "@material-ui/core";
 import styles from "./filters.module.css";
-import { useTheme } from "@material-ui/core/styles";
 
 export interface FiltersProps {
-  defaultChecked: string[];
-  onApplyFilters: (checked: string[]) => void;
+  toilets: Toilet[];
+  filters: {
+    [key in FilterableKey]: { type: string; label: string; options: string[] };
+  };
+  defaultChecked: Record<FilterableKey, string[]>;
+  onApplyFilters: (checked: Record<FilterableKey, string[]>) => void;
 }
 
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+    },
+  },
+};
+
 export const Filters: React.FC<FiltersProps> = ({
+  toilets,
+  filters,
   defaultChecked,
   onApplyFilters,
 }) => {
-  const [checked, setChecked] = React.useState<string[]>(defaultChecked);
-  const theme = useTheme();
+  const [checked, setChecked] = React.useState<Record<FilterableKey, string[]>>(
+    defaultChecked
+  );
 
-  const handleToggle = (value: string) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    setChecked(newChecked);
+  const handleChange = (
+    event: React.ChangeEvent<{ value: unknown }>,
+    key: string
+  ) => {
+    setChecked({ ...checked, [key]: event.target.value as string[] });
   };
+
+  const handleClearAll = () => {
+    const entries = Object.entries(checked);
+
+    const emptyEntries = entries.map(([key]) => [
+      key as FilterableKey,
+      [] as string[],
+    ]);
+
+    setChecked(Object.fromEntries(emptyEntries));
+  };
+
+  const numTotalToilets = toilets.length;
+
+  const numFilteredToilets = toilets.filter((toilet) => {
+    return Object.entries(checked).every(([key, checked]) => {
+      return (
+        checked.length === 0 ||
+        checked.includes(toilet[key as keyof Toilet] as string)
+      );
+    });
+  }).length;
 
   return (
     <div>
       <Box component="article" px={2} pb={2}>
-        <Typography variant="h1">Filters</Typography>
-        <List dense className={styles.root}>
-          {[
-            "Hoist",
-            "Non-slip floor",
-            "Peninsular toilet",
-            "Publicly accessible",
-            "Washbasin",
-          ].map((item, i) => (
-            <ListItem key={item} button onClick={handleToggle(item)}>
-              <ListItemIcon>
-                <InfoOutlinedIcon />
-              </ListItemIcon>
-              <ListItemText primary={item} />
-              <ListItemSecondaryAction style={{ pointerEvents: "none" }}>
-                {checked.indexOf(item) !== -1 && (
-                  <CheckIcon
-                    style={{
-                      color: theme.palette.success.main,
-                    }}
-                  />
-                )}
-              </ListItemSecondaryAction>
-            </ListItem>
-          ))}
-        </List>
-        {(checked.length !== defaultChecked.length ||
-          !checked.every((feature) => defaultChecked.includes(feature))) && (
-          <Fab
-            className={styles.fab}
-            variant="extended"
-            color="primary"
-            onClick={() => onApplyFilters(checked)}
+        <Box display="flex" flexDirection="row" justifyContent="space-between">
+          <Typography variant="h1">Filters</Typography>
+          <Button
+            variant="text"
+            className={styles.button}
+            onClick={() => {
+              handleClearAll();
+            }}
           >
-            Apply
-          </Fab>
-        )}
+            Clear all
+          </Button>
+        </Box>
+        <Typography>
+          {numFilteredToilets} of {numTotalToilets} Changing Places
+        </Typography>
+        <Box display="flex" flexDirection="column">
+          {Object.entries(filters).map(([key, value]) => (
+            <FormControl className={styles.formControl}>
+              <InputLabel id={`${key}-mutiple-checkbox-label`}>
+                {value.label}
+              </InputLabel>
+              <Select
+                labelId={`${key}-mutiple-checkbox-label`}
+                id={`${key}-mutiple-checkbox`}
+                multiple
+                value={checked[key as FilterableKey]}
+                onChange={(event) => handleChange(event, key)}
+                input={<Input />}
+                renderValue={(selected) => (selected as string[]).join(", ")}
+                MenuProps={MenuProps}
+              >
+                {value.options.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    <Checkbox
+                      checked={
+                        checked[key as FilterableKey].indexOf(option) > -1
+                      }
+                    />
+                    <ListItemText primary={option} />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          ))}
+        </Box>
+        <Fab
+          className={styles.fab}
+          variant="extended"
+          color="primary"
+          onClick={() => onApplyFilters(checked)}
+        >
+          Apply
+        </Fab>
       </Box>
     </div>
   );

@@ -1,3 +1,4 @@
+import { FilterableKey, Toilet } from "../Toilet";
 import { MapHandle, ToiletMap } from "./Map";
 import { ToiletsList, ToiletsListHandle } from "./ToiletsList";
 
@@ -9,7 +10,6 @@ import IconButton from "@material-ui/core/IconButton";
 import { Info } from "./Info";
 import React from "react";
 import { SearchBar } from "./SearchBar";
-import { Toilet } from "../Toilet";
 import Toolbar from "@material-ui/core/Toolbar";
 import { findToilets } from "../lib/findToilets";
 import styles from "./page.module.css";
@@ -36,8 +36,25 @@ export const Page: React.FC<PageProps> = ({
   const [hovered, setHovered] = React.useState<string | null>(null);
   const [open, setOpen] = React.useState(false);
   const matches = useMediaQuery("(min-width:600px)");
-  const [filtersChecked, setFiltersChecked] = React.useState<string[]>([]);
+
+  const [filtersChecked, setFiltersChecked] = React.useState<
+    Record<FilterableKey, string[]>
+  >({
+    type: [],
+    category: [],
+  });
+
+  const filteredToilets = React.useMemo(() => toilets.filter((toilet) => {
+    return Object.entries(filtersChecked).every(([key, checked]) => {
+      return (
+        checked.length === 0 ||
+        checked.includes(toilet[key as keyof Toilet] as string)
+      );
+    });
+  }), [filtersChecked, toilets]);
+
   const [isGeolocated, setIsGeolocated] = React.useState(false);
+
   const [drawerContent, setDrawerContent] = React.useState<
     "info" | "filters" | null
   >(null);
@@ -135,13 +152,23 @@ export const Page: React.FC<PageProps> = ({
     }
   }, [position]);
 
+  const typeOptions = React.useMemo(
+    () => [...new Set(toilets.map((toilet) => toilet.type))],
+    [toilets]
+  );
+
+  const categoryOptions = React.useMemo(
+    () => [...new Set(toilets.map((toilet) => toilet.category))],
+    [toilets]
+  );
+
   const nearestToilets = React.useMemo(
     () =>
-      findToilets(toilets, center as any, position as any).slice(
+      findToilets(filteredToilets, center as any, position as any).slice(
         0,
         NUM_TOILETS_TO_DISPLAY
       ),
-    [center, position, toilets]
+    [center, position, filteredToilets]
   );
 
   const selectedToilet = React.useMemo(
@@ -162,7 +189,11 @@ export const Page: React.FC<PageProps> = ({
       <main className={styles.changingPlacesLocator}>
         <div className={styles.searchBar}>
           <SearchBar
-            numFiltersApplied={filtersChecked.length}
+            numFiltersApplied={
+              Object.values(filtersChecked).filter(
+                (filter) => filter.length > 0
+              ).length
+            }
             onChange={(option) => {
               if (option?.place_id) {
                 const geocoder = new google.maps.Geocoder();
@@ -256,6 +287,19 @@ export const Page: React.FC<PageProps> = ({
               selectedToilet && <Info toilet={selectedToilet} />
             ) : (
               <Filters
+                toilets={toilets}
+                filters={{
+                  type: {
+                    type: "multi-select",
+                    label: "Type",
+                    options: typeOptions,
+                  },
+                  category: {
+                    type: "multi-select",
+                    label: "Category",
+                    options: categoryOptions,
+                  },
+                }}
                 defaultChecked={filtersChecked}
                 onApplyFilters={(checked) => {
                   setFiltersChecked(checked);

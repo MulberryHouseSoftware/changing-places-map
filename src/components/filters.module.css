@@ -4,3 +4,13 @@
   bottom: 32px;
   text-transform: none;
 }
+
+.formControl {
+  margin: 8px;
+  min-width: 120px;
+  max-width: 300px;
+}
+
+.button {
+  text-transform: none;
+}
