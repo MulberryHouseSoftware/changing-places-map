@@ -40,20 +40,22 @@ export const ToiletsList = React.forwardRef<
     }));
 
     return (
-      <List disablePadding className={styles.list}>
-        {toilets.map((toilet) => (
-          <ToiletListItem
-            key={toilet.name}
-            ref={refs[toilet.name]}
-            toilet={toilet}
-            selected={toilet.name === selected}
-            onClick={() => onClick(toilet.name)}
-            onInfoClick={() => onInfoClick(toilet.name)}
-            onHoverStart={() => onHoverStart(toilet.name)}
-            onHoverEnd={() => onHoverEnd()}
-          />
-        ))}
-      </List>
+      <div className={styles.listContainer}>
+        <List disablePadding>
+          {toilets.map((toilet) => (
+            <ToiletListItem
+              key={toilet.name}
+              ref={refs[toilet.name]}
+              toilet={toilet}
+              selected={toilet.name === selected}
+              onClick={() => onClick(toilet.name)}
+              onInfoClick={() => onInfoClick(toilet.name)}
+              onHoverStart={() => onHoverStart(toilet.name)}
+              onHoverEnd={() => onHoverEnd()}
+            />
+          ))}
+        </List>
+      </div>
     );
   }
 );

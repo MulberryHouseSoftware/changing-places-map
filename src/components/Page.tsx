@@ -44,14 +44,18 @@ export const Page: React.FC<PageProps> = ({
     category: [],
   });
 
-  const filteredToilets = React.useMemo(() => toilets.filter((toilet) => {
-    return Object.entries(filtersChecked).every(([key, checked]) => {
-      return (
-        checked.length === 0 ||
-        checked.includes(toilet[key as keyof Toilet] as string)
-      );
-    });
-  }), [filtersChecked, toilets]);
+  const filteredToilets = React.useMemo(
+    () =>
+      toilets.filter((toilet) => {
+        return Object.entries(filtersChecked).every(([key, checked]) => {
+          return (
+            checked.length === 0 ||
+            checked.includes(toilet[key as keyof Toilet] as string)
+          );
+        });
+      }),
+    [filtersChecked, toilets]
+  );
 
   const [isGeolocated, setIsGeolocated] = React.useState(false);
 
@@ -177,15 +181,13 @@ export const Page: React.FC<PageProps> = ({
   );
 
   return (
-    <div>
-      <div className={styles.header}>
-        <Header
-          title="Changing Places"
-          href="https://www.changingplaces.org/"
-          showInstallPromotion={showInstallPromotion}
-          onInstallPromotionClick={onInstallPromotionClick}
-        />
-      </div>
+    <>
+      <Header
+        title="Changing Places"
+        href="https://www.changingplaces.org/"
+        showInstallPromotion={showInstallPromotion}
+        onInstallPromotionClick={onInstallPromotionClick}
+      />
       <main className={styles.changingPlacesLocator}>
         <div className={styles.searchBar}>
           <SearchBar
@@ -252,6 +254,7 @@ export const Page: React.FC<PageProps> = ({
         </div>
       </main>
       <Drawer
+        className={styles.drawer}
         anchor={matches ? "left" : "bottom"}
         open={open}
         variant="temporary"
@@ -260,18 +263,10 @@ export const Page: React.FC<PageProps> = ({
         BackdropProps={{ invisible: true }}
         ModalProps={{ disableBackdropClick: true, keepMounted: true }}
         PaperProps={{ elevation: 0 }}
-        style={{ position: "initial" }}
       >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            width: matches ? "40vw" : "100vw",
-            height: "100vh",
-          }}
-        >
+        <div className={styles.drawerContentContainer}>
           <Toolbar />
-          <div style={{ flex: "1 1 0", overflowY: "auto" }}>
+          <div className={styles.drawerContent}>
             <Toolbar>
               <div className={styles.title} />
               <IconButton
@@ -310,6 +305,6 @@ export const Page: React.FC<PageProps> = ({
           </div>
         </div>
       </Drawer>
-    </div>
+    </>
   );
 };

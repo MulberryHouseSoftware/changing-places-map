@@ -1,21 +1,19 @@
 .header {
-  position: absolute;
   left: 0;
   right: 0;
   z-index: 9999;
 }
 
 .changingPlacesLocator {
+  flex: 1 1 0px;
   display: grid;
   width: 100%;
-  height: calc(100vh - 56px);
   grid-template-areas:
     "searchBar"
     "map"
     "list";
   grid-template-rows: auto 32vh minmax(0, 1fr);
   grid-template-columns: 1fr;
-  padding-top: 56px;
 }
 
 .searchBar {
@@ -32,20 +30,36 @@
 
 .list {
   grid-area: list;
+  position: relative;
+  overflow-y: auto;
+}
+
+.drawer {
+  position: initial;
+}
+
+.drawerContentContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+
+.drawerContent {
+  flex: 1 1 0;
   overflow-y: auto;
 }
 
 @media (min-width: 600px) {
   .changingPlacesLocator {
+    flex: 1 1 0px;
     display: grid;
     width: 100%;
-    height: calc(100vh - 64px);
     grid-template-areas:
       "searchBar map"
       "list  map";
     grid-template-rows: auto minmax(0, 1fr);
     grid-template-columns: 4fr 6fr;
-    padding-top: 64px;
   }
 
   .searchBar {
@@ -53,6 +67,10 @@
     margin-right: 16px;
     padding-top: 16px;
     padding-bottom: 16px;
+  }
+
+  .drawerContent {
+    width: 40vw;
   }
 }
 

@@ -25,47 +25,44 @@ export const Header: React.FC<HeaderProps> = ({
   const theme = useTheme();
 
   return (
-    <div className={styles.root}>
-      <AppBar
-        color="primary"
-        position="fixed"
-        style={{
-          zIndex: theme.zIndex.drawer + 1,
-          boxShadow:
-            "0 1px 3px rgba(0,0,0,.1), 0 2px 2px rgba(0,0,0,.06), 0 0 2px rgba(0,0,0,.07)",
-        }}
-      >
-        <Toolbar>
-          <div className={styles.menuButton}>
-            <Link href={href} target="_blank" rel="noopener noreferrer">
-              <Logo width={32} height={32} />
-            </Link>
-          </div>
-          <Typography variant="h1" className={styles.title}>
-            <Link
-              href={href}
-              color="inherit"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {title}
-            </Link>
-          </Typography>
-          {showInstallPromotion && (
-            <Button
-              variant="outlined"
-              color="inherit"
-              startIcon={<GetAppIcon />}
-              className={styles.button}
-              onClick={() => {
-                onInstallPromotionClick();
-              }}
-            >
-              Install
-            </Button>
-          )}
-        </Toolbar>
-      </AppBar>
-    </div>
+    <AppBar
+      color="primary"
+      position="static"
+      className={styles.root}
+      style={{
+        zIndex: theme.zIndex.drawer + 1,
+      }}
+    >
+      <Toolbar>
+        <div className={styles.menuButton}>
+          <Link href={href} target="_blank" rel="noopener noreferrer">
+            <Logo width={32} height={32} />
+          </Link>
+        </div>
+        <Typography variant="h1" className={styles.title}>
+          <Link
+            href={href}
+            color="inherit"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {title}
+          </Link>
+        </Typography>
+        {showInstallPromotion && (
+          <Button
+            variant="outlined"
+            color="inherit"
+            startIcon={<GetAppIcon />}
+            className={styles.button}
+            onClick={() => {
+              onInstallPromotionClick();
+            }}
+          >
+            Install
+          </Button>
+        )}
+      </Toolbar>
+    </AppBar>
   );
 };
