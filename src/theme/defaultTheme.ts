@@ -1,6 +1,7 @@
 export const defaultTheme = {
   palette: {
     primary: { main: "#0072bb" },
+    secondary: { main: "#38E1F5" },
   },
   typography: {
     h1: {
