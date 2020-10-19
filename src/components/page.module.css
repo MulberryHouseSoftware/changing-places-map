@@ -1,9 +1,3 @@
-.header {
-  left: 0;
-  right: 0;
-  z-index: 9999;
-}
-
 .changingPlacesLocator {
   flex: 1 1 0px;
   display: grid;
@@ -69,7 +63,7 @@
     padding-bottom: 16px;
   }
 
-  .drawerContent {
+  .drawerContentContainer {
     width: 40vw;
   }
 }

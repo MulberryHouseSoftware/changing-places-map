@@ -30,7 +30,7 @@ export const Header: React.FC<HeaderProps> = ({
       position="static"
       className={styles.root}
       style={{
-        zIndex: theme.zIndex.drawer + 1,
+        zIndex: theme.zIndex.drawer + 101,
       }}
     >
       <Toolbar>
