@@ -40,16 +40,27 @@ function App() {
   const { position } = usePosition();
 
   React.useEffect(() => {
-    window.addEventListener("beforeinstallprompt", (e: Event) => {
+    const handleBeforeInstallPromptEvent = (e: Event) => {
       // Prevent the mini-infobar from appearing on mobile
       e.preventDefault();
       // Stash the event so it can be triggered later.
       deferredPrompt.current = e as BeforeInstallPromptEvent;
       // Update UI notify the user they can install the PWA
       setShowInstallPromotion(true);
-      console.info("beforeinstallprompt");
-    });
-  });
+    };
+
+    window.addEventListener(
+      "beforeinstallprompt",
+      handleBeforeInstallPromptEvent
+    );
+
+    return () => {
+      window.removeEventListener(
+        "beforeinstallprompt",
+        handleBeforeInstallPromptEvent
+      );
+    };
+  }, []);
 
   const handleInstallPromotionClick = () => {
     if (deferredPrompt.current) {
