@@ -38,7 +38,6 @@ export function register(config?: Config) {
     }
 
     window.addEventListener("load", () => {
-      console.warn("load");
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
 
       if (isLocalhost) {
@@ -70,6 +69,7 @@ function registerValidSW(swUrl: string, config?: Config) {
         if (installingWorker == null) {
           return;
         }
+
         installingWorker.onstatechange = () => {
           if (installingWorker.state === "installed") {
             if (navigator.serviceWorker.controller) {
@@ -99,6 +99,8 @@ function registerValidSW(swUrl: string, config?: Config) {
           }
         };
       };
+
+      registration.update();
     })
     .catch((error) => {
       console.error("Error during service worker registration:", error);
