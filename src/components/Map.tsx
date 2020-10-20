@@ -23,6 +23,13 @@ export interface MapProps {
 
 export interface MapHandle {
   panTo: ({ lat, lng }: { lat: number; lng: number }) => void;
+  getDetails: (
+    request: google.maps.places.PlaceDetailsRequest,
+    callback: (
+      result: google.maps.places.PlaceResult,
+      status: google.maps.places.PlacesServiceStatus
+    ) => void
+  ) => void;
 }
 
 export const ToiletMap = React.forwardRef<MapHandle, MapProps>(
@@ -41,6 +48,7 @@ export const ToiletMap = React.forwardRef<MapHandle, MapProps>(
     ref
   ) => {
     const map = React.useRef<google.maps.Map>();
+    const service = React.useRef<google.maps.places.PlacesService>();
     const markers = React.useRef<Map<string, google.maps.Marker>>(
       new Map<string, google.maps.Marker>()
     );
@@ -48,7 +56,10 @@ export const ToiletMap = React.forwardRef<MapHandle, MapProps>(
 
     React.useImperativeHandle(ref, () => ({
       panTo: (position) => {
-        map.current && map.current.panTo(position);
+        map.current?.panTo(position);
+      },
+      getDetails: (request, callback) => {
+        service.current?.getDetails(request, callback);
       },
     }));
 
@@ -63,6 +74,8 @@ export const ToiletMap = React.forwardRef<MapHandle, MapProps>(
           disableDefaultUI: true,
         }
       );
+
+      service.current = new google.maps.places.PlacesService(map.current);
 
       const dragEndListener = map.current?.addListener("dragend", () => {
         onCenterChanged?.(map.current?.getCenter());
@@ -105,7 +118,10 @@ export const ToiletMap = React.forwardRef<MapHandle, MapProps>(
 
       enterToilets.forEach((toilet) => {
         const marker = new google.maps.Marker({
-          position: { lat: toilet.latLng.lat, lng: toilet.latLng.lng },
+          position: {
+            lat: toilet.google_data.geometry.location.lat,
+            lng: toilet.google_data.geometry.location.lng,
+          },
           map: map.current,
           icon: markerDefault,
         });

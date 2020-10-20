@@ -85,8 +85,8 @@ export const Page: React.FC<PageProps> = ({
 
       if (selectedToilet) {
         mapRef.current?.panTo({
-          lat: selectedToilet.latLng.lat,
-          lng: selectedToilet.latLng.lng,
+          lat: selectedToilet.google_data.geometry.location.lat,
+          lng: selectedToilet.google_data.geometry.location.lng,
         });
       }
     },
@@ -127,8 +127,8 @@ export const Page: React.FC<PageProps> = ({
 
       if (selectedToilet) {
         mapRef.current?.panTo({
-          lat: selectedToilet.latLng.lat,
-          lng: selectedToilet.latLng.lng,
+          lat: selectedToilet.google_data.geometry.location.lat,
+          lng: selectedToilet.google_data.geometry.location.lng,
         });
 
         toiletsListRef.current?.scrollIntoView(id);
@@ -261,7 +261,7 @@ export const Page: React.FC<PageProps> = ({
         onClose={handleClose}
         disableEnforceFocus
         BackdropProps={{ invisible: true }}
-        ModalProps={{ disableBackdropClick: true, keepMounted: true }}
+        ModalProps={{ disableBackdropClick: true, keepMounted: false }}
         PaperProps={{ elevation: 0 }}
       >
         <div className={styles.drawerContentContainer}>
@@ -279,7 +279,12 @@ export const Page: React.FC<PageProps> = ({
               </IconButton>
             </Toolbar>
             {drawerContent === "info" ? (
-              selectedToilet && <Info toilet={selectedToilet} />
+              selectedToilet && (
+                <Info
+                  toilet={selectedToilet}
+                  getDetails={mapRef.current?.getDetails}
+                />
+              )
             ) : (
               <Filters
                 toilets={toilets}

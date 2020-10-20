@@ -8,9 +8,46 @@ import styles from "./info.module.css";
 
 export interface InfoProps {
   toilet: Toilet;
+  getDetails: any;
 }
 
-export const Info: React.FC<InfoProps> = ({ toilet }) => {
+const DAYS_OF_WEEK = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
+export const Info: React.FC<InfoProps> = ({ toilet, getDetails }) => {
+  const [formattedAddress, setFormattedAddress] = React.useState<string | null>(
+    null
+  );
+
+  const [periods, setPeriods] = React.useState<any[]>([]);
+
+  React.useEffect(() => {
+    const request = {
+      placeId: toilet.google_data.place_id,
+      fields: ["formatted_address", "url", "opening_hours"],
+    };
+
+    getDetails(
+      request,
+      (place: any, status: google.maps.places.PlacesServiceStatus) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          setFormattedAddress(place.formatted_address ?? null);
+
+          if (place.opening_hours) {
+            setPeriods(place.opening_hours.periods);
+          }
+        }
+      }
+    );
+  }, [getDetails, toilet.google_data.place_id]);
+
   let lastUpdated = toilet.timestamp;
 
   if (toilet.timestamp) {
@@ -19,7 +56,7 @@ export const Info: React.FC<InfoProps> = ({ toilet }) => {
       const date = parse(toilet.timestamp, "M/d/yyyy kk:mm:ss", new Date());
       lastUpdated = `${formatDistanceToNow(date)} ago`;
     } catch (e) {
-      console.error(e);
+      console.warn(e);
     }
   }
 
@@ -59,7 +96,9 @@ export const Info: React.FC<InfoProps> = ({ toilet }) => {
           </Box>
           <Box pb={0}>
             <a
-              href={`https://www.google.com/maps/dir/?api=1&destination=${toilet.post_code}&travelmode=walking`}
+              href={`https://www.google.com/maps/dir/?api=1&destination=${
+                formattedAddress ?? toilet.post_code
+              }&travelmode=walking`}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -78,32 +117,22 @@ export const Info: React.FC<InfoProps> = ({ toilet }) => {
           <Typography variant="h2" gutterBottom>
             Hours
           </Typography>
-          <ul className={styles.schedule}>
-            <li className={styles.item}>
-              <Typography component="span" className={styles.day}>
-                <Box>Mon - Fri</Box>
-              </Typography>
-              <Typography component="span" className={styles.hours}>
-                <Box>{toilet.opening_hours_mon_fri}</Box>
-              </Typography>
-            </li>
-            <li className={styles.item}>
-              <Typography component="span" className={styles.day}>
-                Sat - Sun
-              </Typography>
-              <Typography component="span" className={styles.hours}>
-                {toilet.opening_hours_sat_sun}
-              </Typography>
-            </li>
-            <li className={styles.item}>
-              <Typography component="span" className={styles.day}>
-                Public holidays
-              </Typography>
-              <Typography component="span" className={styles.hours}>
-                {toilet.opening_hours_public_holidays}
-              </Typography>
-            </li>
-          </ul>
+          {periods.length > 0 && (
+            <ul className={styles.schedule}>
+              {periods.map((period) => (
+                <li key={DAYS_OF_WEEK[period.open.day]} className={styles.item}>
+                  <Typography component="span" className={styles.day}>
+                    <Box>{DAYS_OF_WEEK[period.open.day]}</Box>
+                  </Typography>
+                  <Typography component="span" className={styles.hours}>
+                    <Box>
+                      {period.open.time} - {period.close.time}
+                    </Box>
+                  </Typography>
+                </li>
+              ))}
+            </ul>
+          )}
         </Box>
         <Box pb={4}>
           <Typography variant="h2" gutterBottom>

@@ -25,7 +25,7 @@ export type Toilet = {
   signage?: boolean; // Signage
   photo?: boolean; // Photo received?
   location?: string; // Location
-  latLng: { lat: number; lng: number };
+  google_data?: any;
   distance?: number;
 };
 

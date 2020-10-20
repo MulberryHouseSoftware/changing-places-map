@@ -19,12 +19,18 @@ export function findToilets(
     index: i,
     value: google.maps.geometry.spherical.computeDistanceBetween(
       searchLatLng,
-      new google.maps.LatLng(toilet.latLng.lat, toilet.latLng.lng)
+      new google.maps.LatLng(
+        toilet.google_data.geometry.location.lat,
+        toilet.google_data.geometry.location.lng
+      )
     ),
     distanceFromUser: userLocation
       ? google.maps.geometry.spherical.computeDistanceBetween(
           userLatLng,
-          new google.maps.LatLng(+toilet.latLng.lat, +toilet.latLng.lng)
+          new google.maps.LatLng(
+            +toilet.google_data.geometry.location.lat,
+            +toilet.google_data.geometry.location.lng
+          )
         )
       : undefined,
   }));
