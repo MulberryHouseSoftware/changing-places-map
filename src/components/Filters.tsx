@@ -92,7 +92,7 @@ export const Filters: React.FC<FiltersProps> = ({
         </Typography>
         <Box display="flex" flexDirection="column">
           {Object.entries(filters).map(([key, value]) => (
-            <FormControl className={styles.formControl}>
+            <FormControl key={key} className={styles.formControl}>
               <InputLabel id={`${key}-mutiple-checkbox-label`}>
                 {value.label}
               </InputLabel>
