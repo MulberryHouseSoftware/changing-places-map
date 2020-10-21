@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core/styles";
 
 import App from "./App";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import React from "react";
 import ReactDOM from "react-dom";
 import { defaultTheme } from "./theme/defaultTheme";
@@ -21,6 +22,7 @@ const render = () =>
     <React.StrictMode>
       <StylesProvider injectFirst>
         <ThemeProvider theme={theme}>
+          <CssBaseline />
           <App />
         </ThemeProvider>
       </StylesProvider>
@@ -30,8 +32,7 @@ const render = () =>
 
 // Create the script tag, set the appropriate attributes
 var script = document.createElement("script");
-script.src =
-  `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&callback=initMap&&libraries=geometry,places&v=weekly`;
+script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&callback=initMap&&libraries=geometry,places&v=weekly`;
 script.defer = true;
 
 declare global {
