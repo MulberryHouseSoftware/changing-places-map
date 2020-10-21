@@ -3,6 +3,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 import React from "react";
 import { Typography } from "@material-ui/core";
+import logo from "../images/header-logo.svg";
 
 const Icon = ({ primary = false }) => (
   <div
@@ -10,11 +11,13 @@ const Icon = ({ primary = false }) => (
       flex: "0 0 auto",
       width: "55px",
       height: "55px",
-      backgroundColor: primary ? "black" : "#dddddd",
+      backgroundColor: primary ? "#0072bb" : "#dddddd",
       borderRadius: "8px",
       margin: "0 4px",
     }}
-  />
+  >
+    {primary && <img src={logo} alt="Changing Places icon" />}
+  </div>
 );
 
 export interface InstallProps {}
