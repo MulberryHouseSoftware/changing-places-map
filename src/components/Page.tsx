@@ -4,6 +4,7 @@ import { ToiletsList, ToiletsListHandle } from "./ToiletsList";
 
 import CloseIcon from "@material-ui/icons/Close";
 import Drawer from "@material-ui/core/Drawer";
+import { ErrorBoundary } from "./ErrorBoundary";
 import { Filters } from "./Filters";
 import { Header } from "./Header";
 import IconButton from "@material-ui/core/IconButton";
@@ -254,15 +255,16 @@ export const Page: React.FC<PageProps> = ({
         </div>
       </main>
       <Drawer
-        className={styles.drawer}
         anchor={matches ? "left" : "bottom"}
         open={open}
         variant="temporary"
         onClose={handleClose}
         disableEnforceFocus
+        hideBackdrop
         BackdropProps={{ invisible: true }}
         ModalProps={{ disableBackdropClick: true, keepMounted: false }}
         PaperProps={{ elevation: 0 }}
+        style={{ position: "initial" }}
       >
         <div className={styles.drawerContentContainer}>
           <Toolbar />
@@ -278,35 +280,37 @@ export const Page: React.FC<PageProps> = ({
                 <CloseIcon />
               </IconButton>
             </Toolbar>
-            {drawerContent === "info" ? (
-              selectedToilet && (
-                <Info
-                  toilet={selectedToilet}
-                  getDetails={mapRef.current?.getDetails}
+            <ErrorBoundary>
+              {drawerContent === "info" ? (
+                selectedToilet && (
+                  <Info
+                    toilet={selectedToilet}
+                    getDetails={mapRef.current?.getDetails}
+                  />
+                )
+              ) : (
+                <Filters
+                  toilets={toilets}
+                  filters={{
+                    type: {
+                      type: "multi-select",
+                      label: "Type",
+                      options: typeOptions,
+                    },
+                    category: {
+                      type: "multi-select",
+                      label: "Category",
+                      options: categoryOptions,
+                    },
+                  }}
+                  defaultChecked={filtersChecked}
+                  onApplyFilters={(checked) => {
+                    setFiltersChecked(checked);
+                    handleClose();
+                  }}
                 />
-              )
-            ) : (
-              <Filters
-                toilets={toilets}
-                filters={{
-                  type: {
-                    type: "multi-select",
-                    label: "Type",
-                    options: typeOptions,
-                  },
-                  category: {
-                    type: "multi-select",
-                    label: "Category",
-                    options: categoryOptions,
-                  },
-                }}
-                defaultChecked={filtersChecked}
-                onApplyFilters={(checked) => {
-                  setFiltersChecked(checked);
-                  handleClose();
-                }}
-              />
-            )}
+              )}
+            </ErrorBoundary>
           </div>
         </div>
       </Drawer>

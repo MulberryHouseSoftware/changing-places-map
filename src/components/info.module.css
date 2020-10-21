@@ -1,23 +1,7 @@
 .schedule {
-  display: table;
-  width: 100%;
-  max-width: 500px;
   list-style: none;
   margin: 0;
   padding: 0;
-}
-
-.schedule .item {
-  display: table-row;
-}
-
-.schedule .item .day {
-  display: table-cell;
-}
-
-.schedule .item .hours {
-  display: table-cell;
-  text-align: right;
 }
 
 .features {

@@ -4,6 +4,7 @@ import { formatDistanceToNow, parse } from "date-fns";
 import OpenInNewOutlinedIcon from "@material-ui/icons/OpenInNewOutlined";
 import React from "react";
 import { Toilet } from "../Toilet";
+import defaultPhoto from "../images/default-info-logo.svg";
 import styles from "./info.module.css";
 
 export interface InfoProps {
@@ -11,37 +12,36 @@ export interface InfoProps {
   getDetails: any;
 }
 
-const DAYS_OF_WEEK = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-
 export const Info: React.FC<InfoProps> = ({ toilet, getDetails }) => {
   const [formattedAddress, setFormattedAddress] = React.useState<string | null>(
     null
   );
 
-  const [periods, setPeriods] = React.useState<any[]>([]);
+  const [weekdayText, setWeekdayText] = React.useState<string[]>([]);
+  const [photoUrl, setPhotoUrl] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     const request = {
       placeId: toilet.google_data.place_id,
-      fields: ["formatted_address", "url", "opening_hours"],
+      fields: ["formatted_address", "url", "opening_hours", "photo"],
     };
 
     getDetails(
       request,
       (place: any, status: google.maps.places.PlacesServiceStatus) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-          setFormattedAddress(place.formatted_address ?? null);
+          try {
+            setFormattedAddress(place.formatted_address ?? null);
 
-          if (place.opening_hours) {
-            setPeriods(place.opening_hours.periods);
+            if (place.photos && place.photos.length > 0) {
+              setPhotoUrl(place.photos[0].getUrl({ maxHeight: 240 }));
+            }
+
+            if (place.opening_hours) {
+              setWeekdayText(place.opening_hours.weekday_text);
+            }
+          } catch (error) {
+            console.error(error);
           }
         }
       }
@@ -62,7 +62,22 @@ export const Info: React.FC<InfoProps> = ({ toilet, getDetails }) => {
 
   return (
     <div>
-      <Box component="article" px={2} pb={2}>
+      <Box>
+        <Box height={240} style={{ overflow: "hidden", position: "relative" }}>
+          <img
+            src={photoUrl ?? defaultPhoto}
+            alt={toilet.name}
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              width: "100%",
+              transform: "translateY(-50%) translateX(-50%)",
+            }}
+          />
+        </Box>
+      </Box>
+      <Box component="article" px={2} py={2}>
         <Box pb={4} style={{ textOverflow: "clip", overflow: "hidden" }}>
           <Typography variant="h1" gutterBottom>
             {toilet.name}
@@ -113,27 +128,20 @@ export const Info: React.FC<InfoProps> = ({ toilet, getDetails }) => {
             </a>
           </Box>
         </Box>
-        <Box pb={4}>
-          <Typography variant="h2" gutterBottom>
-            Hours
-          </Typography>
-          {periods.length > 0 && (
+        {weekdayText.length > 0 && (
+          <Box pb={4}>
+            <Typography variant="h2" gutterBottom>
+              Hours
+            </Typography>
             <ul className={styles.schedule}>
-              {periods.map((period) => (
-                <li key={DAYS_OF_WEEK[period.open.day]} className={styles.item}>
-                  <Typography component="span" className={styles.day}>
-                    <Box>{DAYS_OF_WEEK[period.open.day]}</Box>
-                  </Typography>
-                  <Typography component="span" className={styles.hours}>
-                    <Box>
-                      {period.open.time} - {period.close.time}
-                    </Box>
-                  </Typography>
+              {weekdayText.map((text) => (
+                <li key={text}>
+                  <Typography>{text}</Typography>
                 </li>
               ))}
             </ul>
-          )}
-        </Box>
+          </Box>
+        )}
         <Box pb={4}>
           <Typography variant="h2" gutterBottom>
             Equipment checklist

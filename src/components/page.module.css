@@ -28,10 +28,6 @@
   overflow-y: auto;
 }
 
-.drawer {
-  position: initial;
-}
-
 .drawerContentContainer {
   display: flex;
   flex-direction: column;
