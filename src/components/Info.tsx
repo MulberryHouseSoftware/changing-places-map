@@ -90,22 +90,22 @@ export const Info: React.FC<InfoProps> = ({ toilet, getDetails }) => {
             <Typography></Typography>
           </Box>
           <Box pb={2}>
-            <Typography>
+            <Typography gutterBottom>
               <strong>Last updated:</strong> {lastUpdated}
             </Typography>
-            <Typography>
+            <Typography gutterBottom>
               <strong>Location:</strong> {toilet.location}
             </Typography>
-            <Typography>
+            <Typography gutterBottom>
               <strong>Type:</strong> {toilet.type}
             </Typography>
-            <Typography>
+            <Typography gutterBottom>
               <strong>Category:</strong> {toilet.category}
             </Typography>
-            <Typography>
+            <Typography gutterBottom>
               <strong>Contact details:</strong> {toilet.contact_details}
             </Typography>
-            <Typography>
+            <Typography gutterBottom>
               <strong>Other comments:</strong> {toilet.other_comments}
             </Typography>
           </Box>
