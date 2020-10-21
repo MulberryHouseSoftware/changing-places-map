@@ -31,3 +31,17 @@ Default.args = {
     );
   },
 };
+
+export const NoPhotoFound = Template.bind({});
+NoPhotoFound.args = {
+  toilet: toilets[10] as Toilet,
+  getDetails: (_request: any, callback: any) => {
+    callback(
+      {
+        opening_hours: { weekday_text: ["Monday: 9am - 6pm"] },
+        photos: [],
+      },
+      google.maps.places.PlacesServiceStatus.OK
+    );
+  },
+};
