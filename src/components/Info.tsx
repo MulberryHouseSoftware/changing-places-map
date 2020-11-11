@@ -35,14 +35,28 @@ export const Info: React.FC<InfoProps> = ({ toilet, getDetails }) => {
 
             if (place.photos && place.photos.length > 0) {
               setPhotoUrl(place.photos[0].getUrl({ maxHeight: 240 }));
+            } else {
+              setPhotoUrl(null);
             }
 
             if (place.opening_hours) {
               setWeekdayText(place.opening_hours.weekday_text);
+            } else {
+              setWeekdayText([]);
             }
           } catch (error) {
+            setFormattedAddress(null);
+            setPhotoUrl(null);
+            setWeekdayText([]);
+
             console.error(error);
           }
+        } else {
+          setFormattedAddress(null);
+          setPhotoUrl(null);
+          setWeekdayText([]);
+
+          console.warn(`Place details request failed with status: ${status}`);
         }
       }
     );
