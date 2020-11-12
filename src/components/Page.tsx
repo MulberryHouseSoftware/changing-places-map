@@ -3,6 +3,7 @@ import { MapHandle, ToiletMap } from "./Map";
 import { ToiletsList, ToiletsListHandle } from "./ToiletsList";
 
 import CloseIcon from "@material-ui/icons/Close";
+import { Country } from "../Country";
 import Drawer from "@material-ui/core/Drawer";
 import { ErrorBoundary } from "./ErrorBoundary";
 import { Filters } from "./Filters";
@@ -33,6 +34,7 @@ export const Page: React.FC<PageProps> = ({
 }) => {
   const mapRef = React.useRef<MapHandle>(null);
   const toiletsListRef = React.useRef<ToiletsListHandle>(null);
+  const [country, setCountry] = React.useState<Country>("GB");
   const [selected, setSelected] = React.useState<string | null>(null);
   const [hovered, setHovered] = React.useState<string | null>(null);
   const [open, setOpen] = React.useState(false);
@@ -186,12 +188,15 @@ export const Page: React.FC<PageProps> = ({
       <Header
         title="Changing Places"
         href="https://www.changingplaces.org/"
+        country={country}
+        onCountryChange={setCountry}
         showInstallPromotion={showInstallPromotion}
         onInstallPromotionClick={onInstallPromotionClick}
       />
       <main className={styles.changingPlacesLocator}>
         <div className={styles.searchBar}>
           <SearchBar
+            country={country}
             numFiltersApplied={
               Object.values(filtersChecked).filter(
                 (filter) => filter.length > 0

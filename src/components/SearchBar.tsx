@@ -2,6 +2,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import Badge from "@material-ui/core/Badge";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
+import { Country } from "../Country";
 import Grid from "@material-ui/core/Grid";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import React from "react";
@@ -27,6 +28,7 @@ interface PlaceType {
 }
 
 export interface SearchBarProps {
+  country: Country;
   numFiltersApplied?: number;
   onChange: (option: PlaceType | null) => void;
   onFilterClick: () => void;
@@ -36,6 +38,7 @@ export interface SearchBarProps {
  * List of changing places
  */
 export const SearchBar: React.FC<SearchBarProps> = ({
+  country,
   numFiltersApplied = 0,
   onChange,
   onFilterClick,
@@ -85,7 +88,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     }
 
     fetch(
-      { input: inputValue, componentRestrictions: { country: "gb" } },
+      { input: inputValue, componentRestrictions: { country } },
       (results?: PlaceType[]) => {
         if (active) {
           let newOptions = [] as PlaceType[];
@@ -106,7 +109,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     return () => {
       active = false;
     };
-  }, [value, inputValue, fetch]);
+  }, [value, inputValue, fetch, country]);
 
   return (
     <Box display="flex" flexDirection="row" alignItems="center">
