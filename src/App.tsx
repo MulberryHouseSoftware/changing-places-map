@@ -1,4 +1,4 @@
-import { Page } from "./components/Page";
+import { AppFrame } from "./components/AppFrame";
 import React from "react";
 import styles from "./app.module.css";
 import toilets from "./toilets.json";
@@ -81,7 +81,7 @@ function App() {
 
   return (
     <div className={styles.app}>
-      <Page
+      <AppFrame
         toilets={toilets}
         position={position}
         showInstallPromotion={showInstallPromotion}

@@ -19,14 +19,12 @@ const theme = createMuiTheme(defaultTheme);
 
 const render = () =>
   ReactDOM.render(
-    <React.StrictMode>
-      <StylesProvider injectFirst>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <App />
-        </ThemeProvider>
-      </StylesProvider>
-    </React.StrictMode>,
+    <StylesProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <App />
+      </ThemeProvider>
+    </StylesProvider>,
     document.getElementById("root")
   );
 

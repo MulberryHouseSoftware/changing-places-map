@@ -10,6 +10,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Link from "@material-ui/core/Link";
 import { ReactComponent as Logo } from "../images/header-logo.svg";
 import Menu from "@material-ui/core/Menu";
+import MenuIcon from "@material-ui/icons/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import React from "react";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -23,6 +24,7 @@ export interface HeaderProps {
   title: string;
   href: string;
   country: Country;
+  onDrawerOpen: () => void;
   onCountryChange: (country: Country) => void;
   showInstallPromotion?: boolean;
   onInstallPromotionClick?: () => void;
@@ -32,6 +34,7 @@ export const Header: React.FC<HeaderProps> = ({
   title,
   href,
   country,
+  onDrawerOpen,
   onCountryChange,
   showInstallPromotion = false,
   onInstallPromotionClick = () => {},
@@ -147,6 +150,14 @@ export const Header: React.FC<HeaderProps> = ({
             </MenuItem>
           ))}
         </Menu>
+        <IconButton
+          edge="end"
+          color="inherit"
+          aria-label="Open drawer"
+          onClick={onDrawerOpen}
+        >
+          <MenuIcon />
+        </IconButton>
       </Toolbar>
     </AppBar>
   );

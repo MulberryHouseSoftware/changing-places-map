@@ -2,6 +2,7 @@ import { FilterableKey, Toilet } from "../Toilet";
 import { MapHandle, ToiletMap } from "./Map";
 import { ToiletsList, ToiletsListHandle } from "./ToiletsList";
 
+import { AppDrawer } from "./AppDrawer";
 import CloseIcon from "@material-ui/icons/Close";
 import { Country } from "../Country";
 import Drawer from "@material-ui/core/Drawer";
@@ -14,19 +15,19 @@ import React from "react";
 import { SearchBar } from "./SearchBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { findToilets } from "../lib/findToilets";
-import styles from "./page.module.css";
+import styles from "./appFrame.module.css";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const NUM_TOILETS_TO_DISPLAY = 50;
 
-export interface PageProps {
+export interface AppFrameProps {
   toilets: Toilet[];
   position: { lat: number; lng: number } | null;
   showInstallPromotion?: boolean;
   onInstallPromotionClick?: () => void;
 }
 
-export const Page: React.FC<PageProps> = ({
+export const AppFrame: React.FC<AppFrameProps> = ({
   toilets,
   position = null,
   showInstallPromotion = false,
@@ -38,6 +39,7 @@ export const Page: React.FC<PageProps> = ({
   const [selected, setSelected] = React.useState<string | null>(null);
   const [hovered, setHovered] = React.useState<string | null>(null);
   const [open, setOpen] = React.useState(false);
+  const [drawerOpen, setDrawerOpen] = React.useState<boolean>(false);
   const matches = useMediaQuery("(min-width:600px)");
 
   const [filtersChecked, setFiltersChecked] = React.useState<
@@ -189,6 +191,7 @@ export const Page: React.FC<PageProps> = ({
         title="Changing Places"
         href="https://www.changingplaces.org/"
         country={country}
+        onDrawerOpen={() => setDrawerOpen(true)}
         onCountryChange={setCountry}
         showInstallPromotion={showInstallPromotion}
         onInstallPromotionClick={onInstallPromotionClick}
@@ -318,6 +321,15 @@ export const Page: React.FC<PageProps> = ({
             </ErrorBoundary>
           </div>
         </div>
+      </Drawer>
+      <Drawer
+        anchor="right"
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+      >
+        <ErrorBoundary>
+          <AppDrawer onDrawerClose={() => setDrawerOpen(false)} />
+        </ErrorBoundary>
       </Drawer>
     </>
   );
