@@ -51518,74 +51518,26 @@
     }
   },
   {
-    "timestamp": "5/28/2013 11:06:49",
-    "who": "Steve Jenner",
+    "timestamp": "11/20/2020 11:06:49",
+    "who": "John Walley",
     "name": "HARRY JENSEN CENTRE / ABRAHAM MOTT COMMUNITY SPACE",
-    "correspondence_name": "Steve Jenner",
-    "type": "Visitor attraction e.g. Zoo",
+    "correspondence_name": "John Walley",
+    "type": "",
     "type_further_details": "",
-    "category": "Country parks/ open spaces",
-    "address": "Middle park way",
-    "post_code": "PO9 5HB",
+    "category": "",
+    "address": "17 Argyle St, Millers Point NSW 2000, Australia",
+    "post_code": "",
     "contact_details": "",
     "equipment_checklist": [],
     "other_helpful_information": [],
     "managed_setting": true,
-    "washbasin": "Fixed height",
-    "opening_hours_mon_fri": "Monday till Sunday (Winter): 10:00am – 16:00pm",
-    "opening_hours_sat_sun": "Saturday/ Sunday (Summer): 10:00am – 17:00pm",
-    "opening_hours_public_holidays": "Public Holidays:  N/A Only closed Christmas and Boxing days",
-    "other_comments": "Please give details (i.e. Radar key, call ahead, key available from information desk etc):\nThere is no key lock door can only be locked from inside",
-    "photo": true,
+    "photo": false,
     "comments_from_consortium": "",
-    "signage": true,
-    "town": "Havant, Hampshire",
-    "region": "South East",
-    "location": "Visitor centre, Main entrance, ground floor.",
+    "signage": false,
+    "town": "Sydney",
+    "region": "New South Wales",
     "google_data": {
-      "address_components": [
-        {
-          "long_name": "Staunton Farm",
-          "short_name": "Staunton Farm",
-          "types": [
-            "establishment",
-            "park",
-            "point_of_interest",
-            "tourist_attraction"
-          ]
-        },
-        {
-          "long_name": "Middle Park Way",
-          "short_name": "Middle Park Way",
-          "types": ["route"]
-        },
-        {
-          "long_name": "Havant",
-          "short_name": "Havant",
-          "types": ["postal_town"]
-        },
-        {
-          "long_name": "Hampshire",
-          "short_name": "Hampshire",
-          "types": ["administrative_area_level_2", "political"]
-        },
-        {
-          "long_name": "England",
-          "short_name": "England",
-          "types": ["administrative_area_level_1", "political"]
-        },
-        {
-          "long_name": "United Kingdom",
-          "short_name": "GB",
-          "types": ["country", "political"]
-        },
-        {
-          "long_name": "PO9 5HB",
-          "short_name": "PO9 5HB",
-          "types": ["postal_code"]
-        }
-      ],
-      "formatted_address": "Staunton Farm, Middle Park Way, Havant PO9 5HB, UK",
+      "formatted_address": "17 Argyle St, Millers Point NSW 2000, Australia",
       "geometry": {
         "location": { "lat": -33.858805, "lng": 151.2036468 }
       },
