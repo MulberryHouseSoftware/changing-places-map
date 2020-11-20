@@ -13,6 +13,5 @@ const Template: Story<SearchBarProps> = (args) => <SearchBar {...args} />;
 
 export const Standard = Template.bind({});
 Standard.args = {
+  country: "GB",
 };
-
-

@@ -20911,94 +20911,6 @@
     }
   },
   {
-    "timestamp": "1/4/2013 11:35:27",
-    "who": "craig mulley",
-    "name": "Lochlands",
-    "correspondence_name": "craig mulley",
-    "type": "NOT ON THIS LIST",
-    "type_further_details": "adult resource centre",
-    "category": "adult resource centre",
-    "address": "Cairnie Road",
-    "post_code": "DD11 3DY",
-    "contact_details": "Tel: 01241 430027 Email: lochlandsrc@angus.gov.uk",
-    "equipment_checklist": [
-      "Changing bench - height adjustable",
-      "Changing bench - adult sized",
-      "Hoist",
-      "Peninsular toilet",
-      "Non-slip floor",
-      "Washbasin",
-      "Space - 7m squared plus (please note in the other box)",
-      "Emergency alarm",
-      "Tear-off paper roll",
-      "Privacy screen/curtain",
-      "a large bin for pads"
-    ],
-    "other_helpful_information": ["Bench - free standing"],
-    "managed_setting": true,
-    "washbasin": "Height Adjustable",
-    "opening_hours_mon_fri": "Monday to Friday: 8.45am – 4.00pm",
-    "opening_hours_sat_sun": "closed",
-    "opening_hours_public_holidays": "closed",
-    "other_comments": "",
-    "photo": true,
-    "comments_from_consortium": "",
-    "signage": true,
-    "town": "Angus",
-    "region": "Scotland",
-    "location": "first floor",
-    "google_data": {
-      "address_components": [
-        { "long_name": "2", "short_name": "2", "types": ["street_number"] },
-        {
-          "long_name": "Cairnie Road",
-          "short_name": "Cairnie Rd",
-          "types": ["route"]
-        },
-        {
-          "long_name": "Arbroath",
-          "short_name": "Arbroath",
-          "types": ["postal_town"]
-        },
-        {
-          "long_name": "Angus Council",
-          "short_name": "Angus Council",
-          "types": ["administrative_area_level_2", "political"]
-        },
-        {
-          "long_name": "Scotland",
-          "short_name": "Scotland",
-          "types": ["administrative_area_level_1", "political"]
-        },
-        {
-          "long_name": "United Kingdom",
-          "short_name": "GB",
-          "types": ["country", "political"]
-        },
-        {
-          "long_name": "DD11 3DY",
-          "short_name": "DD11 3DY",
-          "types": ["postal_code"]
-        }
-      ],
-      "formatted_address": "2 Cairnie Rd, Arbroath DD11 3DY, UK",
-      "geometry": {
-        "location": { "lat": 56.5640466, "lng": -2.5958366 },
-        "location_type": "ROOFTOP",
-        "viewport": {
-          "northeast": { "lat": 56.5653955802915, "lng": -2.594487619708498 },
-          "southwest": { "lat": 56.5626976197085, "lng": -2.597185580291502 }
-        }
-      },
-      "place_id": "ChIJOyvz9uKMhkgRrj1_WN30OJI",
-      "plus_code": {
-        "compound_code": "HC73+JM Arbroath, UK",
-        "global_code": "9C8VHC73+JM"
-      },
-      "types": ["establishment", "point_of_interest", "university"]
-    }
-  },
-  {
     "timestamp": "1/4/2013 16:33:36",
     "who": "Robert Ryan",
     "name": "Marina Way Changing places",
@@ -43185,101 +43097,6 @@
     }
   },
   {
-    "timestamp": "12/4/2012 17:26:03",
-    "who": "Andrew Arnott",
-    "name": "Jubilee2",
-    "correspondence_name": "Jubilee2  Andrew Arnott",
-    "type": "Sports/leisure centre",
-    "type_further_details": "",
-    "category": "Sports and leisure facilities, including large hotels",
-    "address": "Brunswick Street",
-    "post_code": "ST5-2AG",
-    "contact_details": "Jubilee 2, Brunswick Street, Newcastle-under-Lyme, Staffordshire, ST5 1HG, 01782 616606, www.jubilee2.com",
-    "equipment_checklist": [
-      "Changing bench - height adjustable",
-      "Changing bench - adult sized",
-      "Hoist",
-      "Peninsular toilet",
-      "Non-slip floor",
-      "Washbasin",
-      "Space - 12m squared",
-      "Emergency alarm",
-      "Tear-off paper roll",
-      "Privacy screen/curtain"
-    ],
-    "other_helpful_information": [
-      "Hoist - ceiling system",
-      "Bench - free standing"
-    ],
-    "managed_setting": true,
-    "washbasin": "Height Adjustable",
-    "opening_hours_mon_fri": "Monday till Friday: 6.30am to 10.00pm",
-    "opening_hours_sat_sun": "8.00am to 8.00pm",
-    "opening_hours_public_holidays": "Contact Centre",
-    "other_comments": "Contact Centre",
-    "photo": true,
-    "comments_from_consortium": "",
-    "signage": true,
-    "town": "Newcastle-under-Lyme",
-    "region": "West Midlands",
-    "location": "Ground floor within the main changing area for the swimming pool",
-    "google_data": {
-      "address_components": [
-        { "long_name": "80", "short_name": "80", "types": ["street_number"] },
-        {
-          "long_name": "Brunswick Street",
-          "short_name": "Brunswick St",
-          "types": ["route"]
-        },
-        {
-          "long_name": "Newcastle-under-Lyme",
-          "short_name": "Newcastle-under-Lyme",
-          "types": ["locality", "political"]
-        },
-        {
-          "long_name": "Newcastle",
-          "short_name": "Newcastle",
-          "types": ["postal_town"]
-        },
-        {
-          "long_name": "Staffordshire",
-          "short_name": "Staffordshire",
-          "types": ["administrative_area_level_2", "political"]
-        },
-        {
-          "long_name": "England",
-          "short_name": "England",
-          "types": ["administrative_area_level_1", "political"]
-        },
-        {
-          "long_name": "United Kingdom",
-          "short_name": "GB",
-          "types": ["country", "political"]
-        },
-        {
-          "long_name": "ST5 1TA",
-          "short_name": "ST5 1TA",
-          "types": ["postal_code"]
-        }
-      ],
-      "formatted_address": "80 Brunswick St, Newcastle-under-Lyme, Newcastle ST5 1TA, UK",
-      "geometry": {
-        "location": { "lat": 53.0125578, "lng": -2.2228026 },
-        "location_type": "ROOFTOP",
-        "viewport": {
-          "northeast": { "lat": 53.01390678029149, "lng": -2.221453619708498 },
-          "southwest": { "lat": 53.0112088197085, "lng": -2.224151580291502 }
-        }
-      },
-      "place_id": "ChIJZW-xWQhoekgRoMinlqfCBdg",
-      "plus_code": {
-        "compound_code": "2Q7G+2V Newcastle, UK",
-        "global_code": "9C5V2Q7G+2V"
-      },
-      "types": ["establishment", "gym", "health", "point_of_interest"]
-    }
-  },
-  {
     "timestamp": "10/10/2013 10:30:19",
     "who": "Mike Le-Surf",
     "name": "Keighley Leisure Centre",
@@ -51698,6 +51515,81 @@
         "point_of_interest",
         "tourist_attraction"
       ]
+    }
+  },
+  {
+    "timestamp": "5/28/2013 11:06:49",
+    "who": "Steve Jenner",
+    "name": "HARRY JENSEN CENTRE / ABRAHAM MOTT COMMUNITY SPACE",
+    "correspondence_name": "Steve Jenner",
+    "type": "Visitor attraction e.g. Zoo",
+    "type_further_details": "",
+    "category": "Country parks/ open spaces",
+    "address": "Middle park way",
+    "post_code": "PO9 5HB",
+    "contact_details": "",
+    "equipment_checklist": [],
+    "other_helpful_information": [],
+    "managed_setting": true,
+    "washbasin": "Fixed height",
+    "opening_hours_mon_fri": "Monday till Sunday (Winter): 10:00am – 16:00pm",
+    "opening_hours_sat_sun": "Saturday/ Sunday (Summer): 10:00am – 17:00pm",
+    "opening_hours_public_holidays": "Public Holidays:  N/A Only closed Christmas and Boxing days",
+    "other_comments": "Please give details (i.e. Radar key, call ahead, key available from information desk etc):\nThere is no key lock door can only be locked from inside",
+    "photo": true,
+    "comments_from_consortium": "",
+    "signage": true,
+    "town": "Havant, Hampshire",
+    "region": "South East",
+    "location": "Visitor centre, Main entrance, ground floor.",
+    "google_data": {
+      "address_components": [
+        {
+          "long_name": "Staunton Farm",
+          "short_name": "Staunton Farm",
+          "types": [
+            "establishment",
+            "park",
+            "point_of_interest",
+            "tourist_attraction"
+          ]
+        },
+        {
+          "long_name": "Middle Park Way",
+          "short_name": "Middle Park Way",
+          "types": ["route"]
+        },
+        {
+          "long_name": "Havant",
+          "short_name": "Havant",
+          "types": ["postal_town"]
+        },
+        {
+          "long_name": "Hampshire",
+          "short_name": "Hampshire",
+          "types": ["administrative_area_level_2", "political"]
+        },
+        {
+          "long_name": "England",
+          "short_name": "England",
+          "types": ["administrative_area_level_1", "political"]
+        },
+        {
+          "long_name": "United Kingdom",
+          "short_name": "GB",
+          "types": ["country", "political"]
+        },
+        {
+          "long_name": "PO9 5HB",
+          "short_name": "PO9 5HB",
+          "types": ["postal_code"]
+        }
+      ],
+      "formatted_address": "Staunton Farm, Middle Park Way, Havant PO9 5HB, UK",
+      "geometry": {
+        "location": { "lat": -33.858805, "lng": 151.2036468 }
+      },
+      "place_id": "ChIJ4w14nkSuEmsRhOhwgfYop5s"
     }
   }
 ]
