@@ -10,6 +10,10 @@ When running in production please ensure that the key is adequately secured.
 
 Additionally, you should set the environment variable `STORYBOOK_GOOGLE_MAPS_API_KEY` to a valid API key to run the Storybook stories which use the Google Maps API.
 
+## Google Analytics
+
+You must provide a Google Analytics measurement id. This should be exposed using the environment variable `REACT_APP_GOOGLE_ANALYTICS_MEASUREMENT_ID`.
+
 ## Available Scripts
 
 In the project directory, you can run:
