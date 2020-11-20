@@ -14,7 +14,7 @@ export interface AppDrawerProps {
 
 export const AppDrawer: React.FC<AppDrawerProps> = ({ onDrawerClose }) => {
   return (
-    <div>
+    <Box height="100%" display="flex" flexDirection="column">
       <Toolbar>
         <div className={styles.title} />
         <IconButton
@@ -26,22 +26,38 @@ export const AppDrawer: React.FC<AppDrawerProps> = ({ onDrawerClose }) => {
           <CloseIcon />
         </IconButton>
       </Toolbar>
-      <Box px={2} pb={2}>
-        <Typography variant="h1" color="primary" gutterBottom>
-          <Link
-            href="https://www.aveso.co.uk/"
-            color="inherit"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Aveso
-          </Link>
-        </Typography>
-        <Typography gutterBottom>
-          Official sponsor of Changing Places
-        </Typography>
-        <Divider />
+      <Box
+        px={2}
+        pb={2}
+        flex="1 1 auto"
+        display="flex"
+        flexDirection="column"
+        justifyContent="space-between"
+      >
+        <Box>
+          <Typography variant="h1" color="primary" gutterBottom>
+            <Link
+              href="https://www.aveso.co.uk/"
+              color="inherit"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Aveso
+            </Link>
+          </Typography>
+          <Typography gutterBottom>
+            Official sponsor of Changing Places
+          </Typography>
+          <Divider />
+        </Box>
+        <Box>
+          <Typography>
+            <Link href="https://www.astorbannerman.co.uk/privacy-policy/">
+              Privacy Policy
+            </Link>
+          </Typography>
+        </Box>
       </Box>
-    </div>
+    </Box>
   );
 };
