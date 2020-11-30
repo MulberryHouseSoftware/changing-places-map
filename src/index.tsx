@@ -11,6 +11,7 @@ import {
 
 import App from "./App";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import PWAPrompt from "react-ios-pwa-prompt";
 import React from "react";
 import ReactDOM from "react-dom";
 import { defaultTheme } from "./theme/defaultTheme";
@@ -23,6 +24,12 @@ const render = () =>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <App />
+        <PWAPrompt
+          promptOnVisit={2}
+          copyTitle="Install Changing Places"
+          copyBody="Install this application on your home screen for quick and easy
+            access when you're on the go."
+        />
       </ThemeProvider>
     </StylesProvider>,
     document.getElementById("root")
