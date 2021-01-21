@@ -1,5 +1,13 @@
 import * as React from "react";
 
+interface Position {
+  coords: { latitude: number; longitude: number };
+}
+
+interface PositionError {
+  message: string;
+}
+
 export const usePosition = () => {
   const [position, setPosition] = React.useState<{
     lat: number;
