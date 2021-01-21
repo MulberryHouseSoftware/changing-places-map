@@ -9,16 +9,11 @@ export const COUNTRIES_LABEL = [
   {
     code: "DE",
     text: "Germany",
-    disabled: true,
+    disabled: false,
   },
   {
     code: "GB",
     text: "United Kingdom",
     disabled: false,
-  },
-  {
-    code: "US",
-    text: "United States of America",
-    disabled: true,
   },
 ] as { code: Country; text: string; disabled: boolean }[];

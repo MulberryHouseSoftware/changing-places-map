@@ -6,6 +6,7 @@ export type Toilet = {
   city: string;
   postcode: string;
   county: string;
+  state: string;
   country: string;
   lat: string;
   lng: string;
