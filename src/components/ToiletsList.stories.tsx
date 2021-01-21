@@ -23,5 +23,5 @@ Standard.args = {
 export const Selected = Template.bind({});
 Selected.args = {
   toilets: toilets.slice(0, 10),
-  selected: toilets[1].name,
+  selected: toilets[1].id,
 };

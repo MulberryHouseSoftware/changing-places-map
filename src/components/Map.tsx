@@ -16,7 +16,7 @@ export interface MapProps {
   zoomControl?: boolean;
   mapTypeControl?: boolean;
   streetViewControl?: boolean;
-  onClick?: (name: string) => void;
+  onClick?: (id: string) => void;
   onCenterChanged?: (position: any) => void;
   onMyLocationClick?: () => void;
 }
@@ -103,38 +103,38 @@ export const ToiletMap = React.forwardRef<MapHandle, MapProps>(
     }, [mapTypeControl, zoomControl, streetViewControl]);
 
     React.useEffect(() => {
-      const toiletsSet = new Set(toilets.map((toilet) => toilet.name));
+      const toiletsSet = new Set(toilets.map((toilet) => toilet.id));
 
       const previousToiletsSet = prevToilets
-        ? new Set(prevToilets.map((toilet: Toilet) => toilet.name))
+        ? new Set(prevToilets.map((toilet: Toilet) => toilet.id))
         : new Set<string>();
 
       const enter = difference(toiletsSet, previousToiletsSet);
       const exit = difference(previousToiletsSet, toiletsSet);
 
       const enterToilets = toilets.filter((toilet) =>
-        [...enter].includes(toilet.name)
+        [...enter].includes(toilet.id)
       );
 
       enterToilets.forEach((toilet) => {
         const marker = new google.maps.Marker({
           position: {
-            lat: toilet.google_data.geometry.location.lat,
-            lng: toilet.google_data.geometry.location.lng,
+            lat: +toilet.lat,
+            lng: +toilet.lng,
           },
           map: map.current,
           icon: markerDefault,
         });
 
-        marker.set("id", toilet.name);
-        marker.addListener("click", () => onClick?.(toilet.name));
+        marker.set("id", toilet.id);
+        marker.addListener("click", () => onClick?.(toilet.id));
 
-        markers.current.set(toilet.name, marker);
+        markers.current.set(toilet.id, marker);
       });
 
-      exit.forEach((name) => {
-        markers.current.get(name)?.setMap(null);
-        markers.current.delete(name);
+      exit.forEach((id) => {
+        markers.current.get(id)?.setMap(null);
+        markers.current.delete(id);
       });
     }, [toilets, prevToilets, onClick]);
 

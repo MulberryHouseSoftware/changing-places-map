@@ -36,17 +36,17 @@ export const ToiletListItem = React.forwardRef<
     ref
   ) => {
     let { hoverProps } = useHover({
-      onHoverStart: (e) => {
-        onHoverStart(toilet.name);
+      onHoverStart: (_e) => {
+        onHoverStart(toilet.id);
       },
-      onHoverEnd: (e) => {
+      onHoverEnd: (_e) => {
         onHoverEnd();
       },
     });
 
     return (
       <ListItem
-        key={toilet.name}
+        key={toilet.id}
         ref={ref}
         {...hoverProps}
         aria-label={`Select ${toilet.name}`}
@@ -56,13 +56,15 @@ export const ToiletListItem = React.forwardRef<
         selected={selected}
         autoFocus={selected}
         alignItems="flex-start"
-        onClick={() => onClick(toilet.name)}
+        onClick={() => onClick(toilet.id)}
       >
         <ListItemText
           primary={toilet.name}
           secondary={
             <>
-              <Typography component="span">{toilet.address}</Typography>
+              <Typography component="span">
+                {toilet.formatted_address}
+              </Typography>
               {toilet.distance && (
                 <>
                   <br />
@@ -78,7 +80,7 @@ export const ToiletListItem = React.forwardRef<
           <IconButton
             edge="end"
             aria-label={`Toilet details for ${toilet.name}`}
-            onClick={() => onInfoClick(toilet.name)}
+            onClick={() => onInfoClick(toilet.id)}
           >
             <InfoOutlinedIcon />
           </IconButton>

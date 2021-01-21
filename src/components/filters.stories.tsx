@@ -16,11 +16,6 @@ export const Default = Template.bind({});
 Default.args = {
   toilets,
   filters: {
-    type: {
-      type: "multi-select",
-      label: "Type",
-      options: [...new Set(toilets.map((toilet) => toilet.type))],
-    },
     category: {
       type: "multi-select",
       label: "Category",
@@ -28,7 +23,6 @@ Default.args = {
     },
   },
   defaultChecked: {
-    type: [],
     category: [],
   },
 };

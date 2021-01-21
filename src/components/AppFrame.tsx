@@ -18,7 +18,8 @@ import { findToilets } from "../lib/findToilets";
 import styles from "./appFrame.module.css";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
-const NUM_TOILETS_TO_DISPLAY = 50;
+const NUM_TOILETS_TO_DISPLAY_IN_MAP = 2000;
+const NUM_TOILETS_IN_DISPLAY_IN_LIST = 16; // For performance reasons. Ideally virtualize the list
 
 export interface AppFrameProps {
   toilets: Toilet[];
@@ -45,7 +46,6 @@ export const AppFrame: React.FC<AppFrameProps> = ({
   const [filtersChecked, setFiltersChecked] = React.useState<
     Record<FilterableKey, string[]>
   >({
-    type: [],
     category: [],
   });
 
@@ -86,12 +86,12 @@ export const AppFrame: React.FC<AppFrameProps> = ({
 
   const panToToilet = React.useCallback(
     (id: string) => {
-      const selectedToilet = toilets.find((toilet) => toilet.name === id);
+      const selectedToilet = toilets.find((toilet) => toilet.id === id);
 
       if (selectedToilet) {
         mapRef.current?.panTo({
-          lat: selectedToilet.google_data.geometry.location.lat,
-          lng: selectedToilet.google_data.geometry.location.lng,
+          lat: +selectedToilet.lat,
+          lng: +selectedToilet.lng,
         });
       }
     },
@@ -128,12 +128,12 @@ export const AppFrame: React.FC<AppFrameProps> = ({
     (id: string) => {
       setSelected(id);
 
-      const selectedToilet = toilets.find((toilet) => toilet.name === id);
+      const selectedToilet = toilets.find((toilet) => toilet.id === id);
 
       if (selectedToilet) {
         mapRef.current?.panTo({
-          lat: selectedToilet.google_data.geometry.location.lat,
-          lng: selectedToilet.google_data.geometry.location.lng,
+          lat: +selectedToilet.lat,
+          lng: +selectedToilet.lng,
         });
 
         toiletsListRef.current?.scrollIntoView(id);
@@ -161,11 +161,6 @@ export const AppFrame: React.FC<AppFrameProps> = ({
     }
   }, [position]);
 
-  const typeOptions = React.useMemo(
-    () => [...new Set(toilets.map((toilet) => toilet.type))],
-    [toilets]
-  );
-
   const categoryOptions = React.useMemo(
     () => [...new Set(toilets.map((toilet) => toilet.category))],
     [toilets]
@@ -175,13 +170,13 @@ export const AppFrame: React.FC<AppFrameProps> = ({
     () =>
       findToilets(filteredToilets, center as any, position as any).slice(
         0,
-        NUM_TOILETS_TO_DISPLAY
+        NUM_TOILETS_TO_DISPLAY_IN_MAP
       ),
     [center, position, filteredToilets]
   );
 
   const selectedToilet = React.useMemo(
-    () => toilets.find((toilet) => toilet.name === selected),
+    () => toilets.find((toilet) => toilet.id === selected),
     [selected, toilets]
   );
 
@@ -253,7 +248,7 @@ export const AppFrame: React.FC<AppFrameProps> = ({
         <div className={styles.list}>
           <ToiletsList
             ref={toiletsListRef}
-            toilets={nearestToilets}
+            toilets={nearestToilets.slice(0, NUM_TOILETS_IN_DISPLAY_IN_LIST)}
             selected={selected}
             onHoverStart={handleToiletsListHoverStart}
             onHoverEnd={handleToiletsListHoverEnd}
@@ -300,11 +295,6 @@ export const AppFrame: React.FC<AppFrameProps> = ({
                 <Filters
                   toilets={toilets}
                   filters={{
-                    type: {
-                      type: "multi-select",
-                      label: "Type",
-                      options: typeOptions,
-                    },
                     category: {
                       type: "multi-select",
                       label: "Category",

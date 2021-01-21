@@ -26,7 +26,7 @@ export const ToiletsList = React.forwardRef<
     ref
   ) => {
     const refs = toilets.reduce((acc, value) => {
-      acc[value.name] = React.createRef<HTMLDivElement>();
+      acc[value.id] = React.createRef<HTMLDivElement>();
       return acc;
     }, {} as { [index: string]: React.RefObject<HTMLDivElement> });
 
@@ -44,13 +44,13 @@ export const ToiletsList = React.forwardRef<
         <List disablePadding>
           {toilets.map((toilet) => (
             <ToiletListItem
-              key={toilet.name}
-              ref={refs[toilet.name]}
+              key={toilet.id}
+              ref={refs[toilet.id]}
               toilet={toilet}
-              selected={toilet.name === selected}
-              onClick={() => onClick(toilet.name)}
-              onInfoClick={() => onInfoClick(toilet.name)}
-              onHoverStart={() => onHoverStart(toilet.name)}
+              selected={toilet.id === selected}
+              onClick={() => onClick(toilet.id)}
+              onInfoClick={() => onInfoClick(toilet.id)}
+              onHoverStart={() => onHoverStart(toilet.id)}
               onHoverEnd={() => onHoverEnd()}
             />
           ))}
