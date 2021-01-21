@@ -16,6 +16,7 @@ import { SearchBar } from "./SearchBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { findToilets } from "../lib/findToilets";
 import styles from "./appFrame.module.css";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const NUM_TOILETS_TO_DISPLAY_IN_MAP = 2000;
@@ -36,7 +37,7 @@ export const AppFrame: React.FC<AppFrameProps> = ({
 }) => {
   const mapRef = React.useRef<MapHandle>(null);
   const toiletsListRef = React.useRef<ToiletsListHandle>(null);
-  const [country, setCountry] = React.useState<Country>("GB");
+  const [country, setCountry] = useLocalStorage<Country>("country", "GB");
   const [selected, setSelected] = React.useState<string | null>(null);
   const [hovered, setHovered] = React.useState<string | null>(null);
   const [open, setOpen] = React.useState(false);
