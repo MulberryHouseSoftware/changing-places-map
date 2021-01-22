@@ -101,11 +101,13 @@ export const Info: React.FC<InfoProps> = ({ toilet, getDetails }) => {
             </Typography>
             <Typography></Typography>
           </Box>
-          <Box pb={2}>
-            <Typography gutterBottom>
-              <strong>Category:</strong> {toilet.category}
-            </Typography>
-          </Box>
+          {toilet.category && (
+            <Box pb={2}>
+              <Typography gutterBottom>
+                <strong>Category:</strong> {toilet.category}
+              </Typography>
+            </Box>
+          )}
           <Box pb={0}>
             <a
               href={`https://www.google.com/maps/dir/?api=1&destination=${
@@ -139,18 +141,20 @@ export const Info: React.FC<InfoProps> = ({ toilet, getDetails }) => {
             </ul>
           </Box>
         )}
-        <Box pb={4}>
-          <Typography variant="h2" gutterBottom>
-            Equipment checklist
-          </Typography>
-          <ul className={styles.features}>
-            {toilet.features.map((item) => (
-              <li key={item}>
-                <Typography>{item}</Typography>
-              </li>
-            ))}
-          </ul>
-        </Box>
+        {toilet.features.length > 0 && (
+          <Box pb={4}>
+            <Typography variant="h2" gutterBottom>
+              Equipment checklist
+            </Typography>
+            <ul className={styles.features}>
+              {toilet.features.map((item) => (
+                <li key={item}>
+                  <Typography>{item}</Typography>
+                </li>
+              ))}
+            </ul>
+          </Box>
+        )}
       </Box>
     </div>
   );
