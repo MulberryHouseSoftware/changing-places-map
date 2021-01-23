@@ -26,7 +26,7 @@ const render = () =>
         <App />
         <PWAPrompt
           promptOnVisit={2}
-          copyTitle="Install Changing Places"
+          copyTitle="Install Changing Places International Map"
           copyBody="Install this application on your home screen for quick and easy
             access when you're on the go."
         />

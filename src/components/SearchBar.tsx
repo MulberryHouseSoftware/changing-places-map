@@ -2,8 +2,8 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import Badge from "@material-ui/core/Badge";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import { Country } from "../Country";
 import Grid from "@material-ui/core/Grid";
+import { Language } from "../Language";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import React from "react";
 import TextField from "@material-ui/core/TextField";
@@ -12,25 +12,10 @@ import parse from "autosuggest-highlight/parse";
 import styles from "./searchBar.module.css";
 import throttle from "lodash.throttle";
 
-interface PlaceType {
-  description: string;
-  place_id: string;
-  structured_formatting: {
-    main_text: string;
-    secondary_text: string;
-    main_text_matched_substrings: [
-      {
-        offset: number;
-        length: number;
-      }
-    ];
-  };
-}
-
 export interface SearchBarProps {
-  country: Country;
+  language: Language;
   numFiltersApplied?: number;
-  onChange: (option: PlaceType | null) => void;
+  onChange: (option: google.maps.places.AutocompletePrediction | null) => void;
   onFilterClick: () => void;
 }
 
@@ -38,14 +23,22 @@ export interface SearchBarProps {
  * List of changing places
  */
 export const SearchBar: React.FC<SearchBarProps> = ({
-  country,
+  language,
   numFiltersApplied = 0,
   onChange,
   onFilterClick,
 }) => {
-  const [value, setValue] = React.useState<PlaceType | null>(null);
+  const [
+    value,
+    setValue,
+  ] = React.useState<google.maps.places.AutocompletePrediction | null>(null);
+
   const [inputValue, setInputValue] = React.useState("");
-  const [options, setOptions] = React.useState<PlaceType[]>([]);
+
+  const [options, setOptions] = React.useState<
+    google.maps.places.AutocompletePrediction[]
+  >([]);
+
   const autocompleteService = React.useRef<google.maps.places.AutocompleteService | null>(
     null
   );
@@ -54,17 +47,13 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     () =>
       throttle(
         (
-          request: {
-            input: string;
-            componentRestrictions: { country: string };
-            //location: new google.maps.LatLng()
-          },
-          callback: (results?: PlaceType[]) => void
+          request: google.maps.places.AutocompletionRequest,
+          callback: (
+            result?: google.maps.places.AutocompletePrediction[]
+          ) => void
         ) => {
-          (autocompleteService.current as any).getPlacePredictions(
-            request,
-            callback
-          );
+          autocompleteService.current &&
+            autocompleteService.current.getPlacePredictions(request, callback);
         },
         200
       ),
@@ -88,17 +77,17 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     }
 
     fetch(
-      { input: inputValue, componentRestrictions: { country } },
-      (results?: PlaceType[]) => {
+      { input: inputValue },
+      (result?: google.maps.places.AutocompletePrediction[]) => {
         if (active) {
-          let newOptions = [] as PlaceType[];
+          let newOptions: google.maps.places.AutocompletePrediction[] = [];
 
           if (value) {
             newOptions = [value];
           }
 
-          if (results) {
-            newOptions = [...newOptions, ...results];
+          if (result) {
+            newOptions = [...newOptions, ...result];
           }
 
           setOptions(newOptions);
@@ -109,7 +98,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     return () => {
       active = false;
     };
-  }, [value, inputValue, fetch, country]);
+  }, [value, inputValue, fetch, language]);
 
   return (
     <Box display="flex" flexDirection="row" alignItems="center">
@@ -120,7 +109,10 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         getOptionLabel={(option) => option.description}
         fullWidth
         value={value}
-        onChange={(_event: any, newValue: PlaceType | null) => {
+        onChange={(
+          _event: any,
+          newValue: google.maps.places.AutocompletePrediction | null
+        ) => {
           setOptions(newValue ? [newValue, ...options] : options);
           setValue(newValue);
           onChange(newValue);

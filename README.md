@@ -1,4 +1,4 @@
-# Changing Places Map
+# Changing Places International Map
 
 A mobile-friendly map of accessible toilets.
 

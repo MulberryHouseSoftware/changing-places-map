@@ -1,12 +1,12 @@
 import AppBar from "@material-ui/core/AppBar";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import { COUNTRIES_LABEL } from "../constants";
-import { Country } from "../Country";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import FlagIcon from "@material-ui/icons/Flag";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import IconButton from "@material-ui/core/IconButton";
+import { COUNTRIES_LABEL as LANGUAGES_LABEL } from "../constants";
+import { Language } from "../Language";
+import LanguageIcon from "@material-ui/icons/Translate";
 import Link from "@material-ui/core/Link";
 import { ReactComponent as Logo } from "../images/header-logo.svg";
 import Menu from "@material-ui/core/Menu";
@@ -23,9 +23,9 @@ import { useTheme } from "@material-ui/core/styles";
 export interface HeaderProps {
   title: string;
   href: string;
-  country: Country;
+  language: Language;
   onDrawerOpen: () => void;
-  onCountryChange: (country: Country) => void;
+  onLanguageChange: (language: Language) => void;
   showInstallPromotion?: boolean;
   onInstallPromotionClick?: () => void;
 }
@@ -33,26 +33,27 @@ export interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({
   title,
   href,
-  country,
+  language,
   onDrawerOpen,
-  onCountryChange,
+  onLanguageChange,
   showInstallPromotion = false,
   onInstallPromotionClick = () => {},
 }) => {
-  const [countryMenu, setCountryMenu] = React.useState<
+  const [languageMenu, setLanguageMenu] = React.useState<
     (EventTarget & HTMLButtonElement) | null
   >(null);
+
   const theme = useTheme();
   const matches = useMediaQuery("(min-width:600px)");
 
-  const handleCountryIconClick = (
+  const handleLanguageIconClick = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    setCountryMenu(event.currentTarget);
+    setLanguageMenu(event.currentTarget);
   };
 
-  const handleCountryMenuClose = () => {
-    setCountryMenu(null);
+  const handleLanguageMenuClose = () => {
+    setLanguageMenu(null);
   };
 
   return (
@@ -108,21 +109,21 @@ export const Header: React.FC<HeaderProps> = ({
             )}
           </Box>
         )}
-        <Tooltip title="Change country" enterDelay={300}>
+        <Tooltip title="Change language" enterDelay={300}>
           <Button
             color="inherit"
-            aria-owns={countryMenu ? "country-menu" : undefined}
+            aria-owns={languageMenu ? "language-menu" : undefined}
             aria-haspopup="true"
-            onClick={handleCountryIconClick}
+            onClick={handleLanguageIconClick}
           >
-            <FlagIcon />
+            <LanguageIcon />
             <Typography
               variant="h3"
               component="span"
-              className={styles.country}
+              className={styles.language}
             >
               {
-                COUNTRIES_LABEL.filter((item) => item.code === country)[0][
+                LANGUAGES_LABEL.filter((item) => item.code === language)[0][
                   matches ? "text" : "code"
                 ]
               }
@@ -131,19 +132,19 @@ export const Header: React.FC<HeaderProps> = ({
           </Button>
         </Tooltip>
         <Menu
-          id="country-menu"
-          anchorEl={countryMenu}
-          open={Boolean(countryMenu)}
-          onClose={handleCountryMenuClose}
+          id="language-menu"
+          anchorEl={languageMenu}
+          open={Boolean(languageMenu)}
+          onClose={handleLanguageMenuClose}
         >
-          {COUNTRIES_LABEL.map((item) => (
+          {LANGUAGES_LABEL.map((item) => (
             <MenuItem
               key={item.code}
               disabled={item.disabled}
-              selected={country === item.code}
+              selected={language === item.code}
               onClick={() => {
-                onCountryChange(item.code);
-                handleCountryMenuClose();
+                onLanguageChange(item.code);
+                handleLanguageMenuClose();
               }}
             >
               {item.text}

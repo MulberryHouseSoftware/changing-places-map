@@ -14,12 +14,12 @@ const Template: Story<HeaderProps> = (args) => <Header {...args} />;
 export const NotInstallable = Template.bind({});
 NotInstallable.args = {
   title: "Changing Places",
-  country: "GB",
+  language: "en",
 };
 
 export const Installable = Template.bind({});
 Installable.args = {
   title: "Changing Places",
-  country: "GB",
+  language: "en",
   showInstallPromotion: true,
 };

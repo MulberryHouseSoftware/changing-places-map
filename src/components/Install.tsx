@@ -44,7 +44,7 @@ export const Install: React.FC<InstallProps> = () => {
       </Box>
       <Box textAlign="center" px={2} pb={2}>
         <Box pb={2}>
-          <Typography variant="h1">Install Changing Places</Typography>
+          <Typography variant="h1">Install Changing Places International Map</Typography>
         </Box>
         <Box pb={6}>
           <Typography variant="body1">

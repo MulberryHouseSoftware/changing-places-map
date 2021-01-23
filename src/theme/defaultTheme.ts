@@ -8,7 +8,7 @@ export const defaultTheme = {
       fontWeight: 700,
       fontSize: "1.43rem",
       "@media (max-width:600px)": {
-        fontSize: "1rem",
+        fontSize: "1.43rem",
       },
     },
     h2: {

@@ -4,13 +4,13 @@ import { ToiletsList, ToiletsListHandle } from "./ToiletsList";
 
 import { AppDrawer } from "./AppDrawer";
 import CloseIcon from "@material-ui/icons/Close";
-import { Country } from "../Country";
 import Drawer from "@material-ui/core/Drawer";
 import { ErrorBoundary } from "./ErrorBoundary";
 import { Filters } from "./Filters";
 import { Header } from "./Header";
 import IconButton from "@material-ui/core/IconButton";
 import { Info } from "./Info";
+import { Language } from "../Language";
 import React from "react";
 import { SearchBar } from "./SearchBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -37,7 +37,7 @@ export const AppFrame: React.FC<AppFrameProps> = ({
 }) => {
   const mapRef = React.useRef<MapHandle>(null);
   const toiletsListRef = React.useRef<ToiletsListHandle>(null);
-  const [country, setCountry] = useLocalStorage<Country>("country", "GB");
+  const [language, setLanguage] = useLocalStorage<Language>("language", "en");
   const [selected, setSelected] = React.useState<string | null>(null);
   const [hovered, setHovered] = React.useState<string | null>(null);
   const [open, setOpen] = React.useState(false);
@@ -184,18 +184,18 @@ export const AppFrame: React.FC<AppFrameProps> = ({
   return (
     <>
       <Header
-        title="Changing Places"
+        title="Changing Places International Map"
         href="https://www.changingplaces.org/"
-        country={country}
+        language={language}
         onDrawerOpen={() => setDrawerOpen(true)}
-        onCountryChange={setCountry}
+        onLanguageChange={setLanguage}
         showInstallPromotion={showInstallPromotion}
         onInstallPromotionClick={onInstallPromotionClick}
       />
       <main className={styles.changingPlacesLocator}>
         <div className={styles.searchBar}>
           <SearchBar
-            country={country}
+            language={language}
             numFiltersApplied={
               Object.values(filtersChecked).filter(
                 (filter) => filter.length > 0

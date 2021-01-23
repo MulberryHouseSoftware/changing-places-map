@@ -14,9 +14,16 @@ export interface AppDrawerProps {
 
 export const AppDrawer: React.FC<AppDrawerProps> = ({ onDrawerClose }) => {
   return (
-    <Box height="100%" display="flex" flexDirection="column">
+    <Box
+      height="100%"
+      display="flex"
+      flexDirection="column"
+      className={styles.drawerContentContainer}
+    >
       <Toolbar>
-        <div className={styles.title} />
+        <Typography variant="h1" className={styles.title}>
+          About
+        </Typography>
         <IconButton
           edge="end"
           color="inherit"
@@ -35,7 +42,12 @@ export const AppDrawer: React.FC<AppDrawerProps> = ({ onDrawerClose }) => {
         justifyContent="space-between"
       >
         <Box>
-          <Typography variant="h1" color="primary" gutterBottom>
+          <Typography gutterBottom>
+            This map is a valuable global resource to map Changing Places
+            worldwide. Hosted by Changing Places Toilets International, a
+            charity with the aim of facilitating Changing Places to be installed
+            in the built environment globally. The map development was made
+            possible by{" "}
             <Link
               href="https://www.aveso.co.uk/"
               color="inherit"
@@ -44,9 +56,7 @@ export const AppDrawer: React.FC<AppDrawerProps> = ({ onDrawerClose }) => {
             >
               Aveso
             </Link>
-          </Typography>
-          <Typography gutterBottom>
-            Official sponsor of Changing Places
+            , sponsor of Changing Places.
           </Typography>
           <Divider />
         </Box>

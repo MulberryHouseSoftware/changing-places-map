@@ -1,19 +1,14 @@
-import { Country } from "./Country";
+import { Language } from "./Language";
 
 export const COUNTRIES_LABEL = [
   {
-    code: "AU",
-    text: "Australia",
+    code: "en",
+    text: "English",
     disabled: false,
   },
   {
-    code: "DE",
-    text: "Germany",
+    code: "de",
+    text: "Deutsch",
     disabled: false,
   },
-  {
-    code: "GB",
-    text: "United Kingdom",
-    disabled: false,
-  },
-] as { code: Country; text: string; disabled: boolean }[];
+] as { code: Language; text: string; disabled: boolean }[];

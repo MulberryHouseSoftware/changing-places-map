@@ -1,4 +1,14 @@
 .title {
-  margin-left: 16px;
+  margin-left: 0px;
   flex: 1;
+}
+
+.drawerContentContainer {
+  width: 100vw;
+}
+
+@media (min-width: 600px) {
+  .drawerContentContainer {
+    width: 40vw;
+  }
 }
