@@ -20,18 +20,20 @@ export const AppDrawer: React.FC<AppDrawerProps> = ({ onDrawerClose }) => {
       flexDirection="column"
       className={styles.drawerContentContainer}
     >
-      <Toolbar>
-        <Typography variant="h1" className={styles.title}>
-          About
-        </Typography>
-        <IconButton
-          edge="end"
-          color="inherit"
-          onClick={() => onDrawerClose()}
-          aria-label="close"
-        >
-          <CloseIcon />
-        </IconButton>
+      <Toolbar disableGutters>
+        <Box pl={2} className={styles.title}>
+          <Typography variant="h1">About</Typography>
+        </Box>
+        <Box pr={2}>
+          <IconButton
+            edge="end"
+            color="inherit"
+            onClick={() => onDrawerClose()}
+            aria-label="close"
+          >
+            <CloseIcon />
+          </IconButton>
+        </Box>
       </Toolbar>
       <Box
         px={2}
@@ -44,13 +46,19 @@ export const AppDrawer: React.FC<AppDrawerProps> = ({ onDrawerClose }) => {
         <Box>
           <Typography gutterBottom>
             This map is a valuable global resource to map Changing Places
-            worldwide. Hosted by Changing Places Toilets International, a
-            charity with the aim of facilitating Changing Places to be installed
-            in the built environment globally. The map development was made
-            possible by{" "}
+            worldwide. Hosted by{" "}
+            <Link
+              href="https://www.changingplacesinternational.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Changing Places Toilets International
+            </Link>
+            , a charity with the aim of facilitating Changing Places to be
+            installed in the built environment globally. The map development was
+            made possible by{" "}
             <Link
               href="https://www.aveso.co.uk/"
-              color="inherit"
               target="_blank"
               rel="noopener noreferrer"
             >
