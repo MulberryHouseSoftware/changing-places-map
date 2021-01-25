@@ -30,6 +30,8 @@ export interface HeaderProps {
   onInstallPromotionClick?: () => void;
 }
 
+const showLanguageMenu = false;
+
 export const Header: React.FC<HeaderProps> = ({
   title,
   href,
@@ -109,28 +111,30 @@ export const Header: React.FC<HeaderProps> = ({
             )}
           </Box>
         )}
-        <Tooltip title="Change language" enterDelay={300}>
-          <Button
-            color="inherit"
-            aria-owns={languageMenu ? "language-menu" : undefined}
-            aria-haspopup="true"
-            onClick={handleLanguageIconClick}
-          >
-            <LanguageIcon />
-            <Typography
-              variant="h3"
-              component="span"
-              className={styles.language}
+        {showLanguageMenu && (
+          <Tooltip title="Change language" enterDelay={300}>
+            <Button
+              color="inherit"
+              aria-owns={languageMenu ? "language-menu" : undefined}
+              aria-haspopup="true"
+              onClick={handleLanguageIconClick}
             >
-              {
-                LANGUAGES_LABEL.filter((item) => item.code === language)[0][
-                  matches ? "text" : "code"
-                ]
-              }
-            </Typography>
-            <ExpandMoreIcon fontSize="small" />
-          </Button>
-        </Tooltip>
+              <LanguageIcon />
+              <Typography
+                variant="h3"
+                component="span"
+                className={styles.language}
+              >
+                {
+                  LANGUAGES_LABEL.filter((item) => item.code === language)[0][
+                    matches ? "text" : "code"
+                  ]
+                }
+              </Typography>
+              <ExpandMoreIcon fontSize="small" />
+            </Button>
+          </Tooltip>
+        )}
         <Menu
           id="language-menu"
           anchorEl={languageMenu}
