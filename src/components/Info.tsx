@@ -96,8 +96,11 @@ export const Info: React.FC<InfoProps> = ({ toilet, getDetails }) => {
           </Typography>
           <Box pb={2}>
             <Typography>{toilet.address_1}</Typography>
+            {toilet.address_2 && <Typography>{toilet.address_2}</Typography>}
             <Typography>
-              {toilet.city}, {toilet.postcode}
+              {[toilet.city, toilet.state, toilet.postcode]
+                .filter((text) => Boolean(text))
+                .join(", ")}
             </Typography>
             <Typography></Typography>
           </Box>
