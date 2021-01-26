@@ -185,7 +185,7 @@ export const AppFrame: React.FC<AppFrameProps> = ({
     <>
       <Header
         title="Changing Places International Map"
-        href="https://www.changingplaces.org/"
+        href="https://www.aveso.co.uk/"
         language={language}
         onDrawerOpen={() => setDrawerOpen(true)}
         onLanguageChange={setLanguage}
