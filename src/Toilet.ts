@@ -15,6 +15,7 @@ export type Toilet = {
   email: string;
   url: string;
   features: string[];
+  opening_hours?: string;
   place_id: string;
   formatted_address: string;
   distance?: number;
