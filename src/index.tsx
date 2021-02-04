@@ -1,5 +1,5 @@
 import "./index.css";
-import "fontsource-roboto";
+import "@fontsource/roboto";
 
 import * as serviceWorker from "./serviceWorker";
 
