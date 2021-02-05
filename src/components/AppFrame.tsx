@@ -15,7 +15,7 @@ import React from "react";
 import { SearchBar } from "./SearchBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { findToilets } from "../lib/findToilets";
-import { hello } from "../api/toiletsAPI";
+import { readAll } from "../api/toiletsAPI";
 import styles from "./appFrame.module.css";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -35,7 +35,7 @@ export const AppFrame: React.FC<AppFrameProps> = ({
   showInstallPromotion = false,
   onInstallPromotionClick = () => {},
 }) => {
-  const { data, error } = useSWR("/api/toilets", hello);
+  const { data, error } = useSWR("/api/toilets", readAll);
   const mapRef = React.useRef<MapHandle>(null);
   const toiletsListRef = React.useRef<ToiletsListHandle>(null);
   const [language, setLanguage] = useLocalStorage<Language>("language", "en");
@@ -185,7 +185,6 @@ export const AppFrame: React.FC<AppFrameProps> = ({
   );
 
   if (error) return <div>failed to load</div>;
-  if (!data) return <div>loading...</div>;
 
   return (
     <>
