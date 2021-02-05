@@ -1,7 +1,6 @@
 import { AppFrame } from "./components/AppFrame";
 import React from "react";
 import styles from "./app.module.css";
-import toilets from "./toilets.json";
 import { usePosition } from "./hooks/usePosition";
 
 /**
@@ -82,7 +81,6 @@ function App() {
   return (
     <div className={styles.app}>
       <AppFrame
-        toilets={toilets}
         position={position}
         showInstallPromotion={showInstallPromotion}
         onInstallPromotionClick={handleInstallPromotionClick}
