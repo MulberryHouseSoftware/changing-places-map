@@ -54,8 +54,6 @@ export const AppFrame: React.FC<AppFrameProps> = ({
   const toilets: Toilet[] = data ? data : [];
 
   const filteredToilets = React.useMemo(() => {
-    console.log("toilets changed:::::::::");
-    console.log(toilets);
     return toilets.filter((toilet) => {
       return Object.entries(filtersChecked).every(([key, checked]) => {
         return (
