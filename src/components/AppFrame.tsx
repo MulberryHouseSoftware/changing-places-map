@@ -15,26 +15,27 @@ import React from "react";
 import { SearchBar } from "./SearchBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { findToilets } from "../lib/findToilets";
+import { readAll } from "../api/toiletsAPI";
 import styles from "./appFrame.module.css";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import useSWR from "swr";
 
 const NUM_TOILETS_TO_DISPLAY_IN_MAP = 2000;
 const NUM_TOILETS_IN_DISPLAY_IN_LIST = 16; // For performance reasons. Ideally virtualize the list
 
 export interface AppFrameProps {
-  toilets: Toilet[];
   position: { lat: number; lng: number } | null;
   showInstallPromotion?: boolean;
   onInstallPromotionClick?: () => void;
 }
 
 export const AppFrame: React.FC<AppFrameProps> = ({
-  toilets,
   position = null,
   showInstallPromotion = false,
   onInstallPromotionClick = () => {},
 }) => {
+  const { data, error } = useSWR("/api/toilets", readAll);
   const mapRef = React.useRef<MapHandle>(null);
   const toiletsListRef = React.useRef<ToiletsListHandle>(null);
   const [language, setLanguage] = useLocalStorage<Language>("language", "en");
@@ -50,18 +51,18 @@ export const AppFrame: React.FC<AppFrameProps> = ({
     category: [],
   });
 
-  const filteredToilets = React.useMemo(
-    () =>
-      toilets.filter((toilet) => {
-        return Object.entries(filtersChecked).every(([key, checked]) => {
-          return (
-            checked.length === 0 ||
-            checked.includes(toilet[key as keyof Toilet] as string)
-          );
-        });
-      }),
-    [filtersChecked, toilets]
-  );
+  const toilets: Toilet[] = data ? data : [];
+
+  const filteredToilets = React.useMemo(() => {
+    return toilets.filter((toilet) => {
+      return Object.entries(filtersChecked).every(([key, checked]) => {
+        return (
+          checked.length === 0 ||
+          checked.includes(toilet[key as keyof Toilet] as string)
+        );
+      });
+    });
+  }, [filtersChecked, toilets]);
 
   const [isGeolocated, setIsGeolocated] = React.useState(false);
 
@@ -180,6 +181,8 @@ export const AppFrame: React.FC<AppFrameProps> = ({
     () => toilets.find((toilet) => toilet.id === selected),
     [selected, toilets]
   );
+
+  if (error) return <div>failed to load</div>;
 
   return (
     <>
