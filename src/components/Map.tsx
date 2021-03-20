@@ -3,7 +3,9 @@ import MyLocationIcon from "@material-ui/icons/MyLocation";
 import React from "react";
 import { Toilet } from "../Toilet";
 import { difference } from "../lib/setOperations";
-import markerDefault from "../images/toilet-marker-default.svg";
+import markerDefaultBlue from "../images/toilet-marker-default-blue.svg";
+import markerDefaultGreen from "../images/toilet-marker-default-green.svg";
+import markerDefaultYellow from "../images/toilet-marker-default-yellow.svg";
 import markerHover from "../images/toilet-hover-pin.svg";
 import markerSelected from "../images/toilet-marker-selected.svg";
 import styles from "./map.module.css";
@@ -123,10 +125,14 @@ export const ToiletMap = React.forwardRef<MapHandle, MapProps>(
             lng: +toilet.lng,
           },
           map: map.current,
-          icon: markerDefault,
+          icon:
+            toilet?.quality_level === 1
+              ? markerDefaultGreen
+              : markerDefaultYellow,
         });
 
         marker.set("id", toilet.id);
+        marker.set("quality_level", toilet?.quality_level ?? 3);
         marker.addListener("click", () => onClick?.(toilet.id));
 
         markers.current.set(toilet.id, marker);
@@ -139,7 +145,13 @@ export const ToiletMap = React.forwardRef<MapHandle, MapProps>(
     }, [toilets, prevToilets, onClick]);
 
     React.useEffect(() => {
-      markers.current.forEach((marker) => marker.setIcon(markerDefault));
+      markers.current.forEach((marker) =>
+        marker.setIcon(
+          marker.get("quality_level") === 1
+            ? markerDefaultGreen
+            : markerDefaultYellow
+        )
+      );
 
       if (hovered) {
         markers.current.get(hovered)?.setIcon(markerHover);
