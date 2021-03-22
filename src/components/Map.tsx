@@ -3,11 +3,12 @@ import MyLocationIcon from "@material-ui/icons/MyLocation";
 import React from "react";
 import { Toilet } from "../Toilet";
 import { difference } from "../lib/setOperations";
-import markerDefaultBlue from "../images/toilet-marker-default-blue.svg";
 import markerDefaultGreen from "../images/toilet-marker-default-green.svg";
 import markerDefaultYellow from "../images/toilet-marker-default-yellow.svg";
-import markerHover from "../images/toilet-hover-pin.svg";
-import markerSelected from "../images/toilet-marker-selected.svg";
+import markerHoverGreen from "../images/toilet-hover-pin-green.svg";
+import markerHoverYellow from "../images/toilet-hover-pin-yellow.svg";
+import markerSelectedGreen from "../images/toilet-marker-selected-green.svg";
+import markerSelectedYellow from "../images/toilet-marker-selected-yellow.svg";
 import styles from "./map.module.css";
 import { usePrevious } from "../hooks/usePrevious";
 
@@ -126,13 +127,13 @@ export const ToiletMap = React.forwardRef<MapHandle, MapProps>(
           },
           map: map.current,
           icon:
-            toilet?.quality_level === 1
+            toilet.equipment_standard === "Green"
               ? markerDefaultGreen
               : markerDefaultYellow,
         });
 
         marker.set("id", toilet.id);
-        marker.set("quality_level", toilet?.quality_level ?? 3);
+        marker.set("equipment_standard", toilet?.equipment_standard ?? 3);
         marker.addListener("click", () => onClick?.(toilet.id));
 
         markers.current.set(toilet.id, marker);
@@ -147,18 +148,30 @@ export const ToiletMap = React.forwardRef<MapHandle, MapProps>(
     React.useEffect(() => {
       markers.current.forEach((marker) =>
         marker.setIcon(
-          marker.get("quality_level") === 1
+          marker.get("equipment_standard") === "Green"
             ? markerDefaultGreen
             : markerDefaultYellow
         )
       );
 
       if (hovered) {
-        markers.current.get(hovered)?.setIcon(markerHover);
+        const marker = markers.current.get(hovered);
+
+        marker?.setIcon(
+          marker.get("equipment_standard") === "Green"
+            ? markerHoverGreen
+            : markerHoverYellow
+        );
       }
 
       if (selected) {
-        markers.current.get(selected)?.setIcon(markerSelected);
+        const marker = markers.current.get(selected);
+
+        marker?.setIcon(
+          marker.get("equipment_standard") === "Green"
+            ? markerSelectedGreen
+            : markerSelectedYellow
+        );
       }
     }, [toilets, selected, hovered]);
 
