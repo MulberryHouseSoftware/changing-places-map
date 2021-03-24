@@ -86,7 +86,7 @@ function App() {
   return (
     <div className={styles.app}>
       <AppFrame
-        toilets={data}
+        toilets={data ?? []}
         position={position}
         showInstallPromotion={showInstallPromotion}
         onInstallPromotionClick={handleInstallPromotionClick}
