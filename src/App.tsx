@@ -1,7 +1,9 @@
 import { AppFrame } from "./components/AppFrame";
 import React from "react";
+import { readAll } from "./api/toiletsAPI";
 import styles from "./app.module.css";
 import { usePosition } from "./hooks/usePosition";
+import useSWR from "swr";
 
 /**
  * The BeforeInstallPromptEvent is fired at the Window.onbeforeinstallprompt handler
@@ -34,6 +36,7 @@ interface BeforeInstallPromptEvent extends Event {
 }
 
 function App() {
+  const { data, error } = useSWR("/api/toilets", readAll);
   const deferredPrompt = React.useRef<BeforeInstallPromptEvent | null>(null);
   const [showInstallPromotion, setShowInstallPromotion] = React.useState(false);
   const { position } = usePosition();
@@ -78,9 +81,12 @@ function App() {
     }
   };
 
+  if (error) return <div>failed to load</div>;
+
   return (
     <div className={styles.app}>
       <AppFrame
+        toilets={data}
         position={position}
         showInstallPromotion={showInstallPromotion}
         onInstallPromotionClick={handleInstallPromotionClick}

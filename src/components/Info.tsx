@@ -1,10 +1,22 @@
 import { Box, Typography } from "@material-ui/core";
 
+import InfoIcon from "@material-ui/icons/Info";
 import OpenInNewOutlinedIcon from "@material-ui/icons/OpenInNewOutlined";
 import React from "react";
 import { Toilet } from "../Toilet";
 import defaultPhoto from "../images/default-info-logo.svg";
 import styles from "./info.module.css";
+
+const qualityLevelMap: {
+  [index: string]: { description: string; color: string };
+} = {
+  "Green": { description: "Complete Changing Places", color: "green" },
+  "Orange": { description: "Some equipment, not full spec", color: "orange" },
+  "Yellow": {
+    description: "Some equipment, adheres to local country standards",
+    color: "#f9ed43",
+  },
+};
 
 export interface InfoProps {
   toilet: Toilet;
@@ -94,6 +106,18 @@ export const Info: React.FC<InfoProps> = ({ toilet, getDetails }) => {
           <Typography variant="h1" gutterBottom>
             {toilet.name}
           </Typography>
+          {toilet.equipment_standard && <Box display="flex" flexDirection="row" alignItems="center" pb={2}>
+            <InfoIcon
+              style={{
+                color: qualityLevelMap[toilet.equipment_standard].color,
+              }}
+            />
+            <Box pl={1}>
+              <Typography>
+                {qualityLevelMap[toilet.equipment_standard].description}
+              </Typography>
+            </Box>
+          </Box>}
           <Box pb={2}>
             <Typography>{toilet.address_1}</Typography>
             {toilet.address_2 && <Typography>{toilet.address_2}</Typography>}

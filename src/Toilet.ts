@@ -19,6 +19,7 @@ export type Toilet = {
   place_id: string;
   formatted_address: string;
   distance?: number;
+  equipment_standard?: "Green" | "Orange" | "Yellow" | undefined;
 };
 
 export type FilterableKey = "category";
