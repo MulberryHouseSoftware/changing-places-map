@@ -6,17 +6,16 @@ import * as serviceWorker from "./serviceWorker";
 import {
   StylesProvider,
   ThemeProvider,
-  createMuiTheme,
+  createTheme,
 } from "@material-ui/core/styles";
 
 import App from "./App";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import PWAPrompt from "react-ios-pwa-prompt";
-import React from "react";
 import ReactDOM from "react-dom";
 import { defaultTheme } from "./theme/defaultTheme";
 
-const theme = createMuiTheme(defaultTheme);
+const theme = createTheme(defaultTheme);
 
 const render = () =>
   ReactDOM.render(
