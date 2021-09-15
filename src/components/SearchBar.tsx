@@ -49,7 +49,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         (
           request: google.maps.places.AutocompletionRequest,
           callback: (
-            result?: google.maps.places.AutocompletePrediction[]
+            result?: google.maps.places.AutocompletePrediction[] | null
           ) => void
         ) => {
           autocompleteService.current &&
@@ -78,7 +78,9 @@ export const SearchBar: React.FC<SearchBarProps> = ({
 
     fetch(
       { input: inputValue },
-      (result?: google.maps.places.AutocompletePrediction[]) => {
+      (
+        result?: google.maps.places.AutocompletePrediction[] | null | undefined
+      ) => {
         if (active) {
           let newOptions: google.maps.places.AutocompletePrediction[] = [];
 

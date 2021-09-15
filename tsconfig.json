@@ -15,7 +15,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
-    "types": ["googlemaps"]
+    "types": ["google.maps"]
   },
   "include": ["src"]
 }

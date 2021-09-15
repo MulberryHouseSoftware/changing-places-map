@@ -206,7 +206,7 @@ export const AppFrame: React.FC<AppFrameProps> = ({
                 geocoder.geocode(
                   { placeId: option.place_id },
                   (results, status) => {
-                    if (status === "OK") {
+                    if (status === "OK" && results) {
                       if (results[0]) {
                         setCenter({
                           lat: results[0].geometry.location.lat(),

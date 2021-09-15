@@ -29,7 +29,7 @@ export interface MapHandle {
   getDetails: (
     request: google.maps.places.PlaceDetailsRequest,
     callback: (
-      result: google.maps.places.PlaceResult,
+      result: google.maps.places.PlaceResult | null,
       status: google.maps.places.PlacesServiceStatus
     ) => void
   ) => void;
