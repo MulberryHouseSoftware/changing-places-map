@@ -67,6 +67,11 @@ export const AppFrame: React.FC<AppFrameProps> = ({
     "info" | "filters" | null
   >(null);
 
+  const [center, setCenter] = React.useState<{
+    lat: number;
+    lng: number;
+  } | null>({ lat: 52, lng: 0 });
+
   React.useEffect(() => {
     if (position && !isGeolocated) {
       setCenter(position);
@@ -130,6 +135,7 @@ export const AppFrame: React.FC<AppFrameProps> = ({
       const selectedToilet = toilets.find((toilet) => toilet.id === id);
 
       if (selectedToilet) {
+        setCenter({ lat: +selectedToilet.lat, lng: +selectedToilet.lng });
         mapRef.current?.panTo({
           lat: +selectedToilet.lat,
           lng: +selectedToilet.lng,
@@ -140,11 +146,6 @@ export const AppFrame: React.FC<AppFrameProps> = ({
     },
     [toilets]
   );
-
-  const [center, setCenter] = React.useState<{
-    lat: number;
-    lng: number;
-  } | null>({ lat: 52, lng: 0 });
 
   const handleMapCenterChanged = React.useCallback(
     (center: google.maps.LatLng) => {
