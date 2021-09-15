@@ -19,8 +19,8 @@
     "date-fns": "2.19.0",
     "faunadb": "4.4.1",
     "lodash.throttle": "4.1.1",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
     "react-ios-pwa-prompt": "1.8.4",
     "react-scripts": "3.4.3",
     "swr": "1.0.1",
@@ -63,6 +63,6 @@
     "babel-loader": "8.1.0",
     "chromatic": "^5.7.0",
     "netlify-plugin-contextual-env": "^0.3.0",
-    "react-is": "^16.13.1"
+    "react-is": "^17.0.2"
   }
 }
