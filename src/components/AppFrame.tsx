@@ -18,9 +18,20 @@ import { findToilets } from "../lib/findToilets";
 import styles from "./appFrame.module.css";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useHistory, useLocation } from "react-router";
 
 const NUM_TOILETS_TO_DISPLAY_IN_MAP = 2000;
 const NUM_TOILETS_IN_DISPLAY_IN_LIST = 16; // For performance reasons. Ideally virtualize the list
+
+function useQuery() {
+  const queryRef = React.useRef<URLSearchParams>(null!);
+
+  const search = useLocation().search;
+
+  queryRef.current = new URLSearchParams(search);
+
+  return queryRef;
+}
 
 export interface AppFrameProps {
   toilets: Toilet[];
@@ -38,11 +49,87 @@ export const AppFrame: React.FC<AppFrameProps> = ({
   const mapRef = React.useRef<MapHandle>(null);
   const toiletsListRef = React.useRef<ToiletsListHandle>(null);
   const [language, setLanguage] = useLocalStorage<Language>("language", "en");
-  const [selected, setSelected] = React.useState<string | null>(null);
   const [hovered, setHovered] = React.useState<string | null>(null);
-  const [open, setOpen] = React.useState(false);
   const [drawerOpen, setDrawerOpen] = React.useState<boolean>(false);
   const matches = useMediaQuery("(min-width:600px)");
+
+  const query = useQuery();
+  const history = useHistory();
+
+  const latLng = query.current.get("latLng")?.split(",") ?? null;
+  const location = query.current.get("location") ?? null;
+  const locationDetail = query.current.get("locationDetail") ?? null;
+
+  const center = React.useMemo(
+    () => (latLng ? { lat: +latLng[0], lng: +latLng[1] } : [52, 0]),
+    [latLng]
+  );
+
+  const setCenter = React.useCallback(
+    (
+      latLng: {
+        lat: number;
+        lng: number;
+      } | null
+    ) => {
+      if (latLng !== null) {
+        if (query.current.has("latLng")) {
+          query.current.set("latLng", `${latLng.lat},${latLng.lng}`);
+        } else {
+          query.current.append("latLng", `${latLng.lat},${latLng.lng}`);
+        }
+      } else {
+        query.current.delete("latLng");
+      }
+
+      query.current.sort();
+
+      history.replace(`/?${query.current.toString()}`);
+    },
+    [history, query]
+  );
+
+  const selected = React.useMemo(() => location, [location]);
+
+  const setSelected = React.useCallback(
+    (loc: string | null) => {
+      if (loc !== null) {
+        if (query.current.has("location")) {
+          query.current.set("location", loc);
+        } else {
+          query.current.append("location", loc);
+        }
+      } else {
+        query.current.delete("location");
+      }
+
+      query.current.sort();
+
+      history.replace(`/?${query.current.toString()}`);
+    },
+    [history, query]
+  );
+
+  const open = React.useMemo(() => locationDetail, [locationDetail]);
+
+  const setOpen = React.useCallback(
+    (detail: string | null) => {
+      if (detail !== null) {
+        if (query.current.has("locationDetail")) {
+          query.current.set("locationDetail", detail);
+        } else {
+          query.current.append("locationDetail", detail);
+        }
+      } else {
+        query.current.delete("locationDetail");
+      }
+
+      query.current.sort();
+
+      history.replace(`/?${query.current.toString()}`);
+    },
+    [history, query]
+  );
 
   const [filtersChecked, setFiltersChecked] = React.useState<
     Record<FilterableKey, string[]>
@@ -63,14 +150,9 @@ export const AppFrame: React.FC<AppFrameProps> = ({
 
   const [isGeolocated, setIsGeolocated] = React.useState(false);
 
-  const [drawerContent, setDrawerContent] = React.useState<
-    "info" | "filters" | null
-  >(null);
-
-  const [center, setCenter] = React.useState<{
-    lat: number;
-    lng: number;
-  } | null>({ lat: 52, lng: 0 });
+  const [drawerContent, setDrawerContent] = React.useState<"info" | "filters">(
+    "info"
+  );
 
   React.useEffect(() => {
     if (position && !isGeolocated) {
@@ -78,15 +160,24 @@ export const AppFrame: React.FC<AppFrameProps> = ({
       mapRef.current?.panTo(position);
       setIsGeolocated(true);
     }
-  }, [isGeolocated, position]);
+  }, [isGeolocated, position, setCenter]);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  React.useEffect(() => {
+    if (mapRef.current) {
+      if (latLng) {
+        mapRef.current.panTo({ lat: +latLng[0], lng: +latLng[1] });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleClickOpen = React.useCallback(() => {
+    setOpen(selected);
+  }, [selected, setOpen]);
+
+  const handleClose = React.useCallback(() => {
+    setOpen(null);
+  }, [setOpen]);
 
   const panToToilet = React.useCallback(
     (id: string) => {
@@ -107,7 +198,7 @@ export const AppFrame: React.FC<AppFrameProps> = ({
       setSelected(id);
       panToToilet(id);
     },
-    [panToToilet]
+    [panToToilet, setSelected]
   );
 
   const handleToiletsListInfoClick = React.useCallback(
@@ -117,7 +208,7 @@ export const AppFrame: React.FC<AppFrameProps> = ({
       setDrawerContent("info");
       handleClickOpen();
     },
-    [panToToilet]
+    [handleClickOpen, panToToilet, setSelected]
   );
 
   const handleToiletsListHoverStart = React.useCallback((id) => {
@@ -144,14 +235,14 @@ export const AppFrame: React.FC<AppFrameProps> = ({
         toiletsListRef.current?.scrollIntoView(id);
       }
     },
-    [toilets]
+    [setCenter, setSelected, toilets]
   );
 
   const handleMapCenterChanged = React.useCallback(
     (center: google.maps.LatLng) => {
       setCenter({ lat: center.lat(), lng: center.lng() });
     },
-    []
+    [setCenter]
   );
 
   const handleMyLocationClick = React.useCallback(() => {
@@ -159,7 +250,7 @@ export const AppFrame: React.FC<AppFrameProps> = ({
       setCenter(position);
       mapRef.current?.panTo(position);
     }
-  }, [position]);
+  }, [position, setCenter]);
 
   const categoryOptions = React.useMemo(
     () => [...new Set(toilets.map((toilet) => toilet.category))],
@@ -259,7 +350,7 @@ export const AppFrame: React.FC<AppFrameProps> = ({
       </main>
       <Drawer
         anchor={matches ? "left" : "bottom"}
-        open={open}
+        open={open !== null}
         variant="temporary"
         onClose={handleClose}
         disableEnforceFocus
