@@ -13,23 +13,26 @@ import PWAPrompt from "react-ios-pwa-prompt";
 import ReactDOM from "react-dom";
 import { defaultTheme } from "./theme/defaultTheme";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+import { BrowserRouter as Router } from "react-router-dom";
 
 const theme = createTheme(defaultTheme);
 
 const render = () =>
   ReactDOM.render(
-    <StylesProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <App />
-        <PWAPrompt
-          promptOnVisit={2}
-          copyTitle="Install Changing Places International Map"
-          copyBody="Install this application on your home screen for quick and easy
+    <Router>
+      <StylesProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <App />
+          <PWAPrompt
+            promptOnVisit={2}
+            copyTitle="Install Changing Places International Map"
+            copyBody="Install this application on your home screen for quick and easy
             access when you're on the go."
-        />
-      </ThemeProvider>
-    </StylesProvider>,
+          />
+        </ThemeProvider>
+      </StylesProvider>
+    </Router>,
     document.getElementById("root")
   );
 

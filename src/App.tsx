@@ -4,6 +4,7 @@ import { readAll } from "./api/toiletsAPI";
 import styles from "./app.module.css";
 import { usePosition } from "./hooks/usePosition";
 import useSWR from "swr";
+import { Box, CircularProgress, Typography } from "@material-ui/core";
 
 /**
  * The BeforeInstallPromptEvent is fired at the Window.onbeforeinstallprompt handler
@@ -64,7 +65,7 @@ function App() {
     };
   }, []);
 
-  const handleInstallPromotionClick = () => {
+  const handleInstallPromotionClick = React.useCallback(() => {
     if (deferredPrompt.current) {
       // Hide the app provided install promotion
       setShowInstallPromotion(false);
@@ -79,9 +80,35 @@ function App() {
         }
       });
     }
-  };
+  }, []);
 
-  if (error) return <div>failed to load</div>;
+  if (error) {
+    return (
+      <Box
+        height={1}
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Typography>Failed to load</Typography>
+      </Box>
+    );
+  }
+
+  if (!data) {
+    return (
+      <Box
+        height={1}
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <div className={styles.app}>
