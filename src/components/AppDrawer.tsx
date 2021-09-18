@@ -1,11 +1,12 @@
+import { Typography } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
-import CloseIcon from "@material-ui/icons/Close";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import Link from "@material-ui/core/Link";
-import React from "react";
 import Toolbar from "@material-ui/core/Toolbar";
-import { Typography } from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
+import React from "react";
+
 import styles from "./appDrawer.module.css";
 
 export interface AppDrawerProps {

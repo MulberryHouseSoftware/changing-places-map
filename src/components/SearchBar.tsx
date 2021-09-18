@@ -1,16 +1,17 @@
-import Autocomplete from "@material-ui/lab/Autocomplete";
 import Badge from "@material-ui/core/Badge";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import { Language } from "../Language";
-import LocationOnIcon from "@material-ui/icons/LocationOn";
-import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
+import LocationOnIcon from "@material-ui/icons/LocationOn";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 import parse from "autosuggest-highlight/parse";
-import styles from "./searchBar.module.css";
 import throttle from "lodash.throttle";
+import React from "react";
+
+import { Language } from "../Language";
+import styles from "./searchBar.module.css";
 
 export interface SearchBarProps {
   language: Language;

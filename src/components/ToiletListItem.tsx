@@ -1,12 +1,13 @@
+import { Typography } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
-import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
-import React from "react";
-import { Toilet } from "../Toilet";
-import { Typography } from "@material-ui/core";
+import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import { useHover } from "@react-aria/interactions";
+import React from "react";
+
+import { Toilet } from "../Toilet";
 
 const format = (value: number) =>
   new Intl.NumberFormat("en-GB", { maximumSignificantDigits: 2 }).format(value);

@@ -1,24 +1,24 @@
-import { FilterableKey, Toilet } from "../Toilet";
-import { MapHandle, ToiletMap } from "./Map";
-import { ToiletsList, ToiletsListHandle } from "./ToiletsList";
-
-import { AppDrawer } from "./AppDrawer";
-import CloseIcon from "@material-ui/icons/Close";
 import Drawer from "@material-ui/core/Drawer";
+import IconButton from "@material-ui/core/IconButton";
+import Toolbar from "@material-ui/core/Toolbar";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import CloseIcon from "@material-ui/icons/Close";
+import React from "react";
+import { useHistory, useLocation } from "react-router";
+
+import { useLocalStorage } from "../hooks/useLocalStorage";
+import { Language } from "../Language";
+import { findToilets } from "../lib/findToilets";
+import { FilterableKey, Toilet } from "../Toilet";
+import { AppDrawer } from "./AppDrawer";
+import styles from "./appFrame.module.css";
 import { ErrorBoundary } from "./ErrorBoundary";
 import { Filters } from "./Filters";
 import { Header } from "./Header";
-import IconButton from "@material-ui/core/IconButton";
 import { Info } from "./Info";
-import { Language } from "../Language";
-import React from "react";
+import { MapHandle, ToiletMap } from "./Map";
 import { SearchBar } from "./SearchBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import { findToilets } from "../lib/findToilets";
-import styles from "./appFrame.module.css";
-import { useLocalStorage } from "../hooks/useLocalStorage";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { useHistory, useLocation } from "react-router";
+import { ToiletsList, ToiletsListHandle } from "./ToiletsList";
 
 const NUM_TOILETS_TO_DISPLAY_IN_MAP = 2000;
 const NUM_TOILETS_IN_DISPLAY_IN_LIST = 16; // For performance reasons. Ideally virtualize the list

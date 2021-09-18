@@ -1,19 +1,19 @@
 import "./index.css";
 import "@fontsource/roboto";
 
+import CssBaseline from "@material-ui/core/CssBaseline";
 import {
+  createTheme,
   StylesProvider,
   ThemeProvider,
-  createTheme,
 } from "@material-ui/core/styles";
+import ReactDOM from "react-dom";
+import PWAPrompt from "react-ios-pwa-prompt";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import App from "./App";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import PWAPrompt from "react-ios-pwa-prompt";
-import ReactDOM from "react-dom";
-import { defaultTheme } from "./theme/defaultTheme";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
-import { BrowserRouter as Router } from "react-router-dom";
+import { defaultTheme } from "./theme/defaultTheme";
 
 const theme = createTheme(defaultTheme);
 

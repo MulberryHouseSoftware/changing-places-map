@@ -1,8 +1,9 @@
-import Box from "@material-ui/core/Box";
-import CloseIcon from "@material-ui/icons/Close";
-import IconButton from "@material-ui/core/IconButton";
-import React from "react";
 import { Typography } from "@material-ui/core";
+import Box from "@material-ui/core/Box";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
+import React from "react";
+
 import logo from "../images/header-logo.svg";
 
 const Icon = ({ primary = false }) => (

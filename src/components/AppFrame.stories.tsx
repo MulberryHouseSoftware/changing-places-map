@@ -1,10 +1,7 @@
-import * as ToiletsListStories from "./ToiletsList.stories";
+import { Meta, Story } from "@storybook/react";
 
 import { AppFrame, AppFrameProps } from "./AppFrame";
-// also exported from '@storybook/react' if you can deal with breaking changes in 6.1
-import { Meta, Story } from "@storybook/react/types-6-0";
-
-import React from "react";
+import * as ToiletsListStories from "./ToiletsList.stories";
 
 export default {
   title: "Example/AppFrame",

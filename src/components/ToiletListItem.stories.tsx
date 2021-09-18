@@ -1,10 +1,8 @@
-// also exported from '@storybook/react' if you can deal with breaking changes in 6.1
-import { Meta, Story } from "@storybook/react/types-6-0";
-import { ToiletListItem, ToiletListItemProps } from "./ToiletListItem";
-
 import List from "@material-ui/core/List";
-import React from "react";
+import { Meta, Story } from "@storybook/react";
+
 import toilets from "../toilets.json";
+import { ToiletListItem, ToiletListItemProps } from "./ToiletListItem";
 
 export default {
   title: "Example/ToiletListItem",

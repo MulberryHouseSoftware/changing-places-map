@@ -1,24 +1,25 @@
 import AppBar from "@material-ui/core/AppBar";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import GetAppIcon from "@material-ui/icons/GetApp";
 import IconButton from "@material-ui/core/IconButton";
-import { COUNTRIES_LABEL as LANGUAGES_LABEL } from "../constants";
-import { Language } from "../Language";
-import LanguageIcon from "@material-ui/icons/Translate";
 import Link from "@material-ui/core/Link";
-import { ReactComponent as Logo } from "../images/header-logo.svg";
 import Menu from "@material-ui/core/Menu";
-import MenuIcon from "@material-ui/icons/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import React from "react";
+import { useTheme } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
-import styles from "./header.module.css";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { useTheme } from "@material-ui/core/styles";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import GetAppIcon from "@material-ui/icons/GetApp";
+import MenuIcon from "@material-ui/icons/Menu";
+import LanguageIcon from "@material-ui/icons/Translate";
+import React from "react";
+
+import { COUNTRIES_LABEL as LANGUAGES_LABEL } from "../constants";
+import { ReactComponent as Logo } from "../images/header-logo.svg";
+import { Language } from "../Language";
+import styles from "./header.module.css";
 
 export interface HeaderProps {
   title: string;

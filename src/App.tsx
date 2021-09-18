@@ -1,10 +1,11 @@
-import { AppFrame } from "./components/AppFrame";
+import { Box, CircularProgress, Typography } from "@material-ui/core";
 import React from "react";
+import useSWR from "swr";
+
 import { readAll } from "./api/toiletsAPI";
 import styles from "./app.module.css";
+import { AppFrame } from "./components/AppFrame";
 import { usePosition } from "./hooks/usePosition";
-import useSWR from "swr";
-import { Box, CircularProgress, Typography } from "@material-ui/core";
 
 /**
  * The BeforeInstallPromptEvent is fired at the Window.onbeforeinstallprompt handler

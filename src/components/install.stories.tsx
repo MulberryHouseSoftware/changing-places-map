@@ -1,9 +1,7 @@
-import { Install, InstallProps } from "./Install";
-// also exported from '@storybook/react' if you can deal with breaking changes in 6.1
-import { Meta, Story } from "@storybook/react/types-6-0";
-
 import Dialog from "@material-ui/core/Dialog";
-import React from "react";
+import { Meta, Story } from "@storybook/react";
+
+import { Install, InstallProps } from "./Install";
 
 export default {
   title: "Example/Install",

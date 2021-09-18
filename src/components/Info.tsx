@@ -1,10 +1,10 @@
 import { Box, Typography } from "@material-ui/core";
-
 import InfoIcon from "@material-ui/icons/Info";
 import OpenInNewOutlinedIcon from "@material-ui/icons/OpenInNewOutlined";
 import React from "react";
-import { Toilet } from "../Toilet";
+
 import defaultPhoto from "../images/default-info-logo.svg";
+import { Toilet } from "../Toilet";
 import styles from "./info.module.css";
 
 const qualityLevelMap: {

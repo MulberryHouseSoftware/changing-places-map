@@ -1,16 +1,17 @@
 import Fab from "@material-ui/core/Fab";
 import MyLocationIcon from "@material-ui/icons/MyLocation";
 import React from "react";
-import { Toilet } from "../Toilet";
-import { difference } from "../lib/setOperations";
-import markerDefaultGreen from "../images/toilet-marker-default-green.svg";
-import markerDefaultYellow from "../images/toilet-marker-default-yellow.svg";
+
+import { usePrevious } from "../hooks/usePrevious";
 import markerHoverGreen from "../images/toilet-hover-pin-green.svg";
 import markerHoverYellow from "../images/toilet-hover-pin-yellow.svg";
+import markerDefaultGreen from "../images/toilet-marker-default-green.svg";
+import markerDefaultYellow from "../images/toilet-marker-default-yellow.svg";
 import markerSelectedGreen from "../images/toilet-marker-selected-green.svg";
 import markerSelectedYellow from "../images/toilet-marker-selected-yellow.svg";
+import { difference } from "../lib/setOperations";
+import { Toilet } from "../Toilet";
 import styles from "./map.module.css";
-import { usePrevious } from "../hooks/usePrevious";
 
 export interface MapProps {
   toilets: Toilet[];

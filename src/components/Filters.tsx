@@ -1,5 +1,4 @@
-import { FilterableKey, Toilet } from "../Toilet";
-
+import { Typography } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -9,9 +8,10 @@ import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import ListItemText from "@material-ui/core/ListItemText";
 import MenuItem from "@material-ui/core/MenuItem";
-import React from "react";
 import Select from "@material-ui/core/Select";
-import { Typography } from "@material-ui/core";
+import React from "react";
+
+import { FilterableKey, Toilet } from "../Toilet";
 import styles from "./filters.module.css";
 
 export interface FiltersProps {

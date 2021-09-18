@@ -36,9 +36,6 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -64,7 +61,10 @@
     "@testing-library/user-event": "^7.1.2",
     "babel-loader": "8.1.0",
     "chromatic": "^5.7.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "netlify-plugin-contextual-env": "^0.3.0",
+    "prettier": "^2.4.1",
     "react-is": "^17.0.2"
   }
 }
