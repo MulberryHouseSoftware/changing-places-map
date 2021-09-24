@@ -24,9 +24,6 @@ exports.handler = async function (event, context) {
       return client.query(getAllChangingPlaceDataQuery).then((ret) => {
         return {
           statusCode: 200,
-          headers: {
-            "Cache-Control": "max-age=3600",
-          },
           body: JSON.stringify(ret),
         };
       });
