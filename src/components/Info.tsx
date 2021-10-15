@@ -176,7 +176,10 @@ export const Info: React.FC<InfoProps> = ({ toilet, getDetails }) => {
               Equipment checklist
             </Typography>
             <ul className={styles.features}>
-              {toilet.features.map((item) => (
+              {(typeof toilet.features === "string"
+                ? [toilet.features]
+                : toilet.features
+              ).map((item) => (
                 <li key={item}>
                   <Typography>{item}</Typography>
                 </li>
