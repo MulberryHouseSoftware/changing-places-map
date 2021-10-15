@@ -106,20 +106,22 @@ export const Info: React.FC<InfoProps> = ({ toilet, getDetails }) => {
           <Typography variant="h1" gutterBottom>
             {toilet.name}
           </Typography>
-          {toilet.equipment_standard && (
-            <Box display="flex" flexDirection="row" alignItems="center" pb={2}>
-              <InfoIcon
-                style={{
-                  color: qualityLevelMap[toilet.equipment_standard].color,
-                }}
-              />
-              <Box pl={1}>
-                <Typography>
-                  {qualityLevelMap[toilet.equipment_standard].description}
-                </Typography>
-              </Box>
+          <Box display="flex" flexDirection="row" alignItems="center" pb={2}>
+            <InfoIcon
+              style={{
+                color:
+                  qualityLevelMap[toilet.equipment_standard ?? "Yellow"].color,
+              }}
+            />
+            <Box pl={1}>
+              <Typography>
+                {
+                  qualityLevelMap[toilet.equipment_standard ?? "Yellow"]
+                    .description
+                }
+              </Typography>
             </Box>
-          )}
+          </Box>
           <Box pb={2}>
             <Typography>{toilet.address_1}</Typography>
             {toilet.address_2 && <Typography>{toilet.address_2}</Typography>}
