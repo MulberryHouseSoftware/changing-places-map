@@ -1,3 +1,5 @@
+import orderBy from "lodash.orderby";
+
 import { Toilet } from "../Toilet";
 
 export function findToilets(
@@ -29,17 +31,7 @@ export function findToilets(
       : undefined,
   }));
 
-  distances.sort(function (a, b) {
-    if (a.value > b.value) {
-      return 1;
-    }
-    if (a.value < b.value) {
-      return -1;
-    }
-    return 0;
-  });
-
-  return distances.map((el) => ({
+  return orderBy(distances, ["value"]).map((el) => ({
     ...toilets[el.index],
     distance: el.distanceFromUser,
   }));
