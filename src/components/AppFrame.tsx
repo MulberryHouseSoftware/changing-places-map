@@ -4,7 +4,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import CloseIcon from "@material-ui/icons/Close";
 import React from "react";
-import { useHistory, useLocation } from "react-router";
+import { useHistory, useLocation } from "react-router-dom";
 
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { Language } from "../Language";
