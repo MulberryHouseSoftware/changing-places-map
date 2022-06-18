@@ -1,8 +1,0 @@
-[build]
-  command = "yarn build"
-  functions = "netlify/functions"
-
-[[plugins]]
-  package = 'netlify-plugin-contextual-env'
-  [plugins.inputs]
-  mode = 'prefix'
