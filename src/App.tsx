@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Typography } from "@material-ui/core";
+import { Box, CircularProgress } from "@material-ui/core";
 import React from "react";
 import useSWR from "swr";
 
@@ -38,7 +38,7 @@ interface BeforeInstallPromptEvent extends Event {
 }
 
 function App() {
-  const { data, error } = useSWR("/api/toilets", readAll);
+  const { data } = useSWR("/api/toilets", readAll);
   const deferredPrompt = React.useRef<BeforeInstallPromptEvent | null>(null);
   const [showInstallPromotion, setShowInstallPromotion] = React.useState(false);
   const { position } = usePosition();
@@ -82,20 +82,6 @@ function App() {
       });
     }
   }, []);
-
-  if (error) {
-    return (
-      <Box
-        height={1}
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Typography>Failed to load</Typography>
-      </Box>
-    );
-  }
 
   if (!data) {
     return (
