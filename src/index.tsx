@@ -38,14 +38,18 @@ const render = () =>
 
 // Create the script tag, set the appropriate attributes
 var script = document.createElement("script");
-script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&callback=initMap&&libraries=geometry,places&v=weekly`;
-script.defer = true;
+script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&loading=async&callback=initMap&&libraries=geometry,places&v=weekly`;
+script.async = true;
 
 declare global {
   interface Window {
     initMap: () => void;
   }
 }
+
+script.onerror = function () {
+  console.error("Failed to load the Google Maps API script.");
+};
 
 // Attach your callback function to the `window` object
 window.initMap = function () {
