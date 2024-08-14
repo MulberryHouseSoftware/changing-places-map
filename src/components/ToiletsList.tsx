@@ -6,15 +6,15 @@ import { ToiletListItem } from "./ToiletListItem";
 import styles from "./toiletsList.module.css";
 
 export interface ToiletsListHandle {
-  scrollIntoView: (id: string) => void;
+  scrollIntoView: (id: number) => void;
 }
 
 export interface ToiletsListProps {
   toilets: Toilet[];
-  selected: string | null;
-  onClick: (id: string) => void;
-  onInfoClick: (id: string) => void;
-  onHoverStart: (id: string) => void;
+  selected: number | null;
+  onClick: (id: number) => void;
+  onInfoClick: (id: number) => void;
+  onHoverStart: (id: number) => void;
   onHoverEnd: () => void;
 }
 
@@ -32,7 +32,7 @@ export const ToiletsList = React.forwardRef<
     }, {} as { [index: string]: React.RefObject<HTMLDivElement> });
 
     React.useImperativeHandle(ref, () => ({
-      scrollIntoView: (id: string) => {
+      scrollIntoView: (id: number) => {
         refs[id]?.current?.scrollIntoView({
           behavior: "smooth",
           block: "start",

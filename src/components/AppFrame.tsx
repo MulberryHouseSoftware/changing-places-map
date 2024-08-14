@@ -89,15 +89,18 @@ export const AppFrame: React.FC<AppFrameProps> = ({
     [history, query]
   );
 
-  const selected = React.useMemo(() => location, [location]);
+  const selected = React.useMemo(
+    () => (location !== null ? +location : null),
+    [location]
+  );
 
   const setSelected = React.useCallback(
-    (loc: string | null) => {
+    (loc: number | null) => {
       if (loc !== null) {
         if (query.current.has("location")) {
-          query.current.set("location", loc);
+          query.current.set("location", String(loc));
         } else {
-          query.current.append("location", loc);
+          query.current.append("location", String(loc));
         }
       } else {
         query.current.delete("location");
@@ -113,12 +116,12 @@ export const AppFrame: React.FC<AppFrameProps> = ({
   const open = React.useMemo(() => locationDetail, [locationDetail]);
 
   const setOpen = React.useCallback(
-    (detail: string | null) => {
+    (detail: number | null) => {
       if (detail !== null) {
         if (query.current.has("locationDetail")) {
-          query.current.set("locationDetail", detail);
+          query.current.set("locationDetail", String(detail));
         } else {
-          query.current.append("locationDetail", detail);
+          query.current.append("locationDetail", String(detail));
         }
       } else {
         query.current.delete("locationDetail");
@@ -180,7 +183,7 @@ export const AppFrame: React.FC<AppFrameProps> = ({
   }, [setOpen]);
 
   const panToToilet = React.useCallback(
-    (id: string) => {
+    (id: number) => {
       const selectedToilet = toilets.find((toilet) => toilet.id === id);
 
       if (selectedToilet) {
@@ -220,7 +223,7 @@ export const AppFrame: React.FC<AppFrameProps> = ({
   }, []);
 
   const handleMapClick = React.useCallback(
-    (id: string) => {
+    (id: number) => {
       setSelected(id);
 
       const selectedToilet = toilets.find((toilet) => toilet.id === id);
@@ -253,7 +256,13 @@ export const AppFrame: React.FC<AppFrameProps> = ({
   }, [position, setCenter]);
 
   const categoryOptions = React.useMemo(
-    () => [...new Set(toilets.map((toilet) => toilet.category))],
+    () => [
+      ...new Set(
+        toilets
+          .map((toilet) => toilet.category)
+          .filter((category) => category !== null)
+      ),
+    ],
     [toilets]
   );
 
@@ -267,7 +276,7 @@ export const AppFrame: React.FC<AppFrameProps> = ({
   );
 
   const selectedToilet = React.useMemo(
-    () => toilets.find((toilet) => toilet.id === selected),
+    () => toilets.find((toilet) => selected && toilet.id === +selected),
     [selected, toilets]
   );
 

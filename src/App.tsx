@@ -6,6 +6,7 @@ import { readAll } from "./api/toiletsAPI";
 import styles from "./app.module.css";
 import { AppFrame } from "./components/AppFrame";
 import { usePosition } from "./hooks/usePosition";
+import { Toilet } from "./Toilet";
 
 /**
  * The BeforeInstallPromptEvent is fired at the Window.onbeforeinstallprompt handler
@@ -42,6 +43,8 @@ function App() {
   const deferredPrompt = React.useRef<BeforeInstallPromptEvent | null>(null);
   const [showInstallPromotion, setShowInstallPromotion] = React.useState(false);
   const { position } = usePosition();
+
+  console.log(data);
 
   React.useEffect(() => {
     const handleBeforeInstallPromptEvent = (e: Event) => {

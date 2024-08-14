@@ -1,7 +1,20 @@
+import { createClient } from "@supabase/supabase-js"
+
+import { Database } from '../database.types'
+
+// Create a single supabase client for interacting with your database
+const supabase = createClient<Database>(
+  "https://acgqinkinrullsbkcihi.supabase.co",
+  process.env.REACT_APP_SUPABASE_ANON_KEY!
+);
+
+
 export const readAll = async () => {
-  const response = await fetch("/.netlify/functions/read-all");
+  const { data, error } = await supabase.from("toilets").select();
 
-  const json = await response.json();
+  if (error) {
+    throw error;
+  }
 
-  return json.map((row: any) => ({ ...row.data, id: row.ref["@ref"].id }));
+  return data
 };

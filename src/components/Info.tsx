@@ -172,7 +172,7 @@ export const Info: React.FC<InfoProps> = ({ toilet, getDetails }) => {
             </ul>
           </Box>
         )}
-        {toilet.features.length > 0 && (
+        {toilet.features && toilet.features.length > 0 && (
           <Box pb={4}>
             <Typography variant="h2" gutterBottom>
               Equipment checklist
