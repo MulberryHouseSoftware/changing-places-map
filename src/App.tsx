@@ -43,8 +43,6 @@ function App() {
   const [showInstallPromotion, setShowInstallPromotion] = React.useState(false);
   const { position } = usePosition();
 
-  console.log(data);
-
   React.useEffect(() => {
     const handleBeforeInstallPromptEvent = (e: Event) => {
       // Prevent the mini-infobar from appearing on mobile
