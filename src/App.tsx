@@ -6,7 +6,6 @@ import { readAll } from "./api/toiletsAPI";
 import styles from "./app.module.css";
 import { AppFrame } from "./components/AppFrame";
 import { usePosition } from "./hooks/usePosition";
-import { Toilet } from "./Toilet";
 
 /**
  * The BeforeInstallPromptEvent is fired at the Window.onbeforeinstallprompt handler
