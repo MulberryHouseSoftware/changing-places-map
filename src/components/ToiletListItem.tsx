@@ -15,9 +15,9 @@ const format = (value: number) =>
 export interface ToiletListItemProps {
   toilet: Toilet;
   selected?: boolean;
-  onClick: (id: string) => void;
-  onInfoClick: (id: string) => void;
-  onHoverStart: (id: string) => void;
+  onClick: (id: number) => void;
+  onInfoClick: (id: number) => void;
+  onHoverStart: (id: number) => void;
   onHoverEnd: () => void;
 }
 

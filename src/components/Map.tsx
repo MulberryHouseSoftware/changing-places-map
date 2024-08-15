@@ -15,12 +15,12 @@ import styles from "./map.module.css";
 
 export interface MapProps {
   toilets: Toilet[];
-  selected?: string | null;
+  selected?: number | null;
   hovered?: string | null;
   zoomControl?: boolean;
   mapTypeControl?: boolean;
   streetViewControl?: boolean;
-  onClick?: (id: string) => void;
+  onClick?: (id: number) => void;
   onCenterChanged?: (position: any) => void;
   onMyLocationClick?: () => void;
 }
@@ -111,7 +111,7 @@ export const ToiletMap = React.forwardRef<MapHandle, MapProps>(
 
       const previousToiletsSet = prevToilets
         ? new Set(prevToilets.map((toilet: Toilet) => toilet.id))
-        : new Set<string>();
+        : new Set<number>();
 
       const enter = difference(toiletsSet, previousToiletsSet);
       const exit = difference(previousToiletsSet, toiletsSet);
@@ -137,12 +137,12 @@ export const ToiletMap = React.forwardRef<MapHandle, MapProps>(
         marker.set("equipment_standard", toilet?.equipment_standard ?? 3);
         marker.addListener("click", () => onClick?.(toilet.id));
 
-        markers.current.set(toilet.id, marker);
+        markers.current.set(String(toilet.id), marker);
       });
 
       exit.forEach((id) => {
-        markers.current.get(id)?.setMap(null);
-        markers.current.delete(id);
+        markers.current.get(String(id))?.setMap(null);
+        markers.current.delete(String(id));
       });
     }, [toilets, prevToilets, onClick]);
 
@@ -166,7 +166,7 @@ export const ToiletMap = React.forwardRef<MapHandle, MapProps>(
       }
 
       if (selected) {
-        const marker = markers.current.get(selected);
+        const marker = markers.current.get(String(selected));
 
         marker?.setIcon(
           marker.get("equipment_standard") === "Green"

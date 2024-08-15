@@ -25,10 +25,10 @@ export function findToilets(
     ),
     distanceFromUser: userLocation
       ? google.maps.geometry.spherical.computeDistanceBetween(
-          userLatLng,
-          new google.maps.LatLng(+toilet.lat, +toilet.lng)
-        )
-      : undefined,
+        userLatLng,
+        new google.maps.LatLng(+toilet.lat, +toilet.lng)
+      )
+      : null,
   }));
 
   return orderBy(distances, ["value"]).map((el) => ({
