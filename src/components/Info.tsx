@@ -122,6 +122,22 @@ export const Info: React.FC<InfoProps> = ({ toilet, getDetails }) => {
               </Typography>
             </Box>
           </Box>
+          {toilet.url && <Box pb={2}>
+            <a
+              href={toilet.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Typography
+                style={{ alignItems: "center", display: "inline-flex" }}
+              >
+                {toilet.url}
+                <OpenInNewOutlinedIcon
+                  style={{ fontSize: "0.875rem", paddingLeft: "4px" }}
+                />
+              </Typography>
+            </a>
+          </Box>}
           <Box pb={2}>
             <Typography>{toilet.address_1}</Typography>
             {toilet.address_2 && <Typography>{toilet.address_2}</Typography>}
@@ -141,9 +157,8 @@ export const Info: React.FC<InfoProps> = ({ toilet, getDetails }) => {
           )}
           <Box pb={0}>
             <a
-              href={`https://www.google.com/maps/dir/?api=1&destination=${
-                formattedAddress ?? toilet.postcode
-              }&travelmode=walking`}
+              href={`https://www.google.com/maps/dir/?api=1&destination=${formattedAddress ?? toilet.postcode
+                }&travelmode=walking`}
               target="_blank"
               rel="noopener noreferrer"
             >
