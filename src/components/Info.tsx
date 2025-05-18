@@ -20,7 +20,13 @@ const qualityLevelMap: {
 
 export interface InfoProps {
   toilet: Toilet;
-  getDetails: any;
+  getDetails?: (
+    request: google.maps.places.PlaceDetailsRequest,
+    callback: (
+      result: google.maps.places.PlaceResult | null,
+      status: google.maps.places.PlacesServiceStatus
+    ) => void
+  ) => void;
 }
 
 // TODO: Use toilet.formatted_address rather than getting it from Google?
@@ -44,7 +50,7 @@ export const Info: React.FC<InfoProps> = ({ toilet, getDetails }) => {
       ],
     };
 
-    getDetails(
+    getDetails?.(
       request,
       (place: any, status: google.maps.places.PlacesServiceStatus) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
